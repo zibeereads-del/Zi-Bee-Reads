@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+<title>Zi-Bee Reads</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --honey:#f59e0b;--amber:#d97706;--deep:#1c0a00;--warm:#2d1200;
+  --card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.1);
+  --muted:rgba(255,255,255,0.45);--radius:16px;
+  --primary:#f59e0b;--primary-fg:#1c0a00;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow-x:hidden;}
+body{background:#1c0a00;font-family:'Nunito',sans-serif;color:#fff;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(245,158,11,.18) 0%,transparent 55%),radial-gradient(ellipse at 80% 90%,rgba(217,119,6,.12) 0%,transparent 55%);pointer-events:none;z-index:0;}
+
+/* ── ONBOARDING ── */
+#onboarding{position:fixed;inset:0;background:#1c0a00;z-index:200;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:24px;}
+#onboarding.hidden{display:none;}
+.ob-wrap{width:100%;max-width:420px;animation:fadeUp .5s ease both;}
+.ob-center{text-align:center;margin-bottom:24px;}
+.ob-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--honey);margin-top:8px;margin-bottom:6px;}
+.ob-sub{font-size:13px;color:var(--muted);line-height:1.5;}
+.ob-form{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.ob-label{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;display:block;margin-bottom:6px;}
+.ob-input{width:100%;padding:13px 16px;background:rgba(255,255,255,.06);border:1.5px solid var(--border);border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-size:15px;outline:none;transition:border-color .2s;margin-bottom:16px;}
+.ob-input:focus{border-color:var(--honey);}
+.ob-input::placeholder{color:rgba(255,255,255,.25);}
+.age-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.age-chip{padding:14px 10px;border-radius:12px;border:2px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .18s;}
+.age-chip span{display:block;font-size:11px;opacity:.6;margin-top:2px;}
+.age-chip.selected{border-color:var(--honey);background:rgba(245,158,11,.15);color:var(--honey);}
+.ob-check{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px;cursor:pointer;}
+.ob-checkbox{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);background:none;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px;}
+.ob-checkbox.on{background:var(--honey);border-color:var(--honey);}
+.ob-check-txt{font-size:13px;color:rgba(255,255,255,.75);line-height:1.4;}
+.ob-check-txt small{display:block;font-size:11px;color:var(--muted);margin-top:2px;}
+.ob-btn{width:100%;padding:16px;border-radius:50px;background:linear-gradient(135deg,var(--honey),var(--amber));color:var(--primary-fg);font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;border:none;cursor:pointer;transition:all .2s;box-shadow:0 6px 24px rgba(245,158,11,.35);}
+.ob-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(245,158,11,.5);}
+.ob-privacy{font-size:11px;text-align:center;color:rgba(255,255,255,.25);margin-top:12px;line-height:1.5;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(28,10,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 8px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--honey);}
+.lang-sel{background:rgba(255,255,255,.07);border:1px solid var(--border);color:#fff;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;padding:6px 12px;border-radius:30px;cursor:pointer;outline:none;}
+.lang-sel option{background:#2d1200;}
+.nav-tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:0 16px 10px;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;padding:8px 14px;border-radius:30px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn.active,.tab-btn:hover{background:rgba(245,158,11,.15);color:var(--honey);}
+
+/* ── SCREENS ── */
+.screen{display:none;padding:24px 20px 80px;max-width:700px;margin:0 auto;position:relative;z-index:1;}
+.screen.active{display:block;animation:fadeUp .4s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,34px);font-weight:900;line-height:1.1;margin-bottom:6px;}
+.page-title span{color:var(--honey);}
+.page-sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+
+/* ── SHARED ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all .2s;}
+.btn-gold{background:linear-gradient(135deg,var(--honey),var(--amber));color:var(--primary-fg);box-shadow:0 6px 20px rgba(245,158,11,.3);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,158,11,.45);}
+.btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:#fff;}
+.btn-outline:hover{border-color:var(--honey);color:var(--honey);}
+.w100{width:100%;}
+.inp{width:100%;padding:12px 16px;background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-size:14px;outline:none;transition:border-color .2s;margin-bottom:12px;}
+.inp:focus{border-color:var(--honey);}
+.inp::placeholder{color:rgba(255,255,255,.25);}
+.lbl{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px;}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:16px;}
+.chip{padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:rgba(255,255,255,.65);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .18s;user-select:none;}
+.chip:hover,.chip.on{background:rgba(245,158,11,.15);border-color:var(--honey);color:var(--honey);}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;}
+.badge-gold{background:rgba(245,158,11,.2);color:var(--honey);}
+.badge-green{background:rgba(52,211,153,.15);color:#34d399;}
+.badge-muted{background:rgba(255,255,255,.07);color:var(--muted);}
+hr.div{border:none;border-top:1px solid var(--border);margin:20px 0;}
+
+/* ── MASCOT SVG ── */
+.mascot-wrap{display:inline-block;cursor:pointer;user-select:none;padding-bottom:18px;position:relative;}
+.mascot-svg{overflow:visible;display:block;}
+@keyframes mascotBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-24px);}}
+@keyframes mascotBlink{0%,92%,100%{transform:scaleY(1);}95%{transform:scaleY(0.06);}}
+@keyframes mascotArm1{0%,100%{transform:rotate(-28deg);}50%{transform:rotate(32deg);}}
+@keyframes mascotArm2{0%,100%{transform:rotate(28deg);}50%{transform:rotate(-32deg);}}
+@keyframes mascotLeg1{0%,100%{transform:rotate(7deg);}50%{transform:rotate(-7deg);}}
+@keyframes mascotLeg2{0%,100%{transform:rotate(-7deg);}50%{transform:rotate(7deg);}}
+@keyframes shadowPulse{0%,100%{transform:scaleX(1);opacity:.9;}50%{transform:scaleX(.48);opacity:.25;}}
+@keyframes wiggle{0%{transform:rotate(0);}15%{transform:rotate(-14deg) scale(1.22);}30%{transform:rotate(14deg) scale(1.18);}45%{transform:rotate(-10deg);}60%{transform:rotate(10deg);}75%{transform:rotate(-5deg);}90%{transform:rotate(5deg);}100%{transform:rotate(0) scale(1);}}
+.mascot-bounce{animation:mascotBob .78s infinite ease-in-out;}
+.mascot-blink{transform-origin:70px 59px;animation:mascotBlink .22s 3.2s infinite ease-in-out;}
+.mascot-arm1{transform-origin:30px 66px;animation:mascotArm1 .78s infinite ease-in-out;}
+.mascot-arm2{transform-origin:110px 66px;animation:mascotArm2 .78s infinite ease-in-out;}
+.mascot-leg1{transform-origin:51px 102px;animation:mascotLeg1 .78s infinite ease-in-out;}
+.mascot-leg2{transform-origin:89px 102px;animation:mascotLeg2 .78s infinite ease-in-out;}
+.mascot-shadow{animation:shadowPulse .78s infinite ease-in-out;}
+.mascot-wiggle{animation:wiggle .55s ease-in-out;}
+
+/* ── HOME ── */
+.home-hero{text-align:center;padding:32px 0 24px;}
+.home-title{font-family:'Playfair Display',serif;font-size:clamp(30px,7vw,52px);font-weight:900;line-height:1.05;margin-bottom:10px;color:var(--honey);}
+.home-tagline{color:var(--muted);font-size:15px;max-width:380px;margin:0 auto 28px;line-height:1.6;}
+.welcome-banner{border-radius:var(--radius);border:1px solid rgba(245,158,11,.2);background:rgba(245,158,11,.06);padding:16px 20px;display:flex;align-items:flex-start;gap:14px;max-width:500px;margin:0 auto 28px;}
+.wb-emoji{font-size:28px;flex-shrink:0;line-height:1;}
+.wb-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--honey);margin-bottom:3px;}
+.wb-tip{font-size:13px;color:var(--muted);line-height:1.5;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s;text-align:center;}
+.feat-card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-3px);background:rgba(245,158,11,.07);}
+.feat-icon{font-size:30px;margin-bottom:10px;}
+.feat-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:5px;}
+.feat-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+
+/* ── RECOMMENDER ── */
+.ai-box{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22);border-radius:var(--radius);padding:22px;margin-top:20px;}
+.ai-box h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--honey);margin-bottom:14px;}
+.ai-box p{font-size:14px;line-height:1.75;color:rgba(255,255,255,.85);margin-bottom:8px;}
+.loading{display:flex;gap:6px;align-items:center;padding:8px 0;}
+.loading span{width:8px;height:8px;border-radius:50%;background:var(--honey);animation:dot 1.2s infinite ease-in-out;}
+.loading span:nth-child(2){animation-delay:.2s;}
+.loading span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+
+/* ── TRACKER ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--honey);}
+.stat-lbl{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px;}
+.prog-bar{height:7px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--honey),var(--amber));border-radius:10px;transition:width .5s ease;}
+.goal-ring{display:flex;justify-content:center;margin-bottom:20px;}
+.goal-card{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(217,119,6,.06));border:1px solid rgba(245,158,11,.2);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:16px;}
+@media(min-width:480px){.goal-card{flex-direction:row;}}
+.goal-info{flex:1;text-align:center;}
+@media(min-width:480px){.goal-info{text-align:left;}}
+.goal-lbl{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.goal-val{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;margin-bottom:4px;}
+.goal-adj{font-size:12px;color:var(--muted);}
+.goal-btns{display:flex;align-items:center;gap:12px;margin-top:10px;}
+.goal-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:rgba(255,255,255,.06);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.goal-btn:hover{background:var(--honey);border-color:var(--honey);color:var(--primary-fg);}
+.goal-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;width:40px;text-align:center;}
+.book-row{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:8px;transition:all .2s;}
+.book-row.done{opacity:.5;}
+.book-row.done .b-title{text-decoration:line-through;}
+.chk{width:28px;height:28px;border-radius:8px;border:2px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .2s;}
+.chk.on{background:var(--honey);border-color:var(--honey);color:var(--primary-fg);font-weight:900;}
+.b-title{font-size:14px;font-weight:700;flex:1;}
+.b-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.del-btn{background:none;border:none;color:rgba(255,100,100,.4);cursor:pointer;font-size:16px;padding:4px 6px;transition:color .2s;}
+.del-btn:hover{color:rgba(255,100,100,.9);}
+
+/* ── QUIZ ── */
+.quiz-prog-bar{height:6px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin-bottom:24px;}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--honey),var(--amber));border-radius:10px;transition:width .4s ease;}
+.quiz-q{font-family:'Playfair Display',serif;font-size:clamp(18px,4vw,26px);font-weight:700;margin-bottom:24px;line-height:1.3;text-align:center;padding:16px 0;}
+.quiz-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.quiz-opt{padding:16px 20px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;}
+.quiz-opt:hover,.quiz-opt.on{background:rgba(245,158,11,.15);border-color:var(--honey);color:var(--honey);}
+.quiz-start{text-align:center;padding:40px 0;}
+.quiz-start-icon{font-size:60px;margin-bottom:16px;}
+.quiz-start h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:10px;}
+.quiz-start p{color:var(--muted);font-size:15px;margin-bottom:28px;}
+.result-card{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(217,119,6,.07));border:1px solid rgba(245,158,11,.25);border-radius:var(--radius);padding:32px;text-align:center;}
+.result-icon{font-size:56px;margin-bottom:14px;}
+.result-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--honey);margin-bottom:10px;}
+.result-desc{font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;max-width:400px;margin:0 auto 24px;}
+
+/* ── PICKS ── */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.filter-chip{padding:8px 16px;border-radius:30px;border:1.5px solid var(--border);background:none;color:rgba(255,255,255,.55);font-size:12px;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
+.filter-chip.on{background:rgba(245,158,11,.15);border-color:var(--honey);color:var(--honey);}
+.picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.pick-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:all .2s;display:flex;flex-direction:column;}
+.pick-card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-2px);}
+.pick-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;}
+.pick-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.3;}
+.pick-price{background:rgba(245,158,11,.15);color:var(--honey);font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.pick-author{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.pick-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;flex:1;}
+.ptag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);}
+.pick-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:800;color:var(--honey);text-decoration:none;padding:10px 0;}
+.pick-link:hover{text-decoration:underline;}
+
+/* ── CHALLENGE ── */
+.chal-hero{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(217,119,6,.07));border:1px solid rgba(245,158,11,.25);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:24px;}
+.chal-hero h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+.chal-hero p{color:var(--muted);font-size:13px;margin-bottom:14px;}
+.days-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px;}
+@media(min-width:400px){.days-grid{grid-template-columns:repeat(6,1fr);}}
+@media(min-width:520px){.days-grid{grid-template-columns:repeat(10,1fr);}}
+.day-dot{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;border:1.5px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .2s;}
+.day-dot.on{background:var(--honey);border-color:var(--honey);color:var(--primary-fg);box-shadow:0 0 12px rgba(245,158,11,.5);}
+.day-dot:hover:not(.on){border-color:rgba(245,158,11,.4);color:rgba(245,158,11,.7);}
+.rew-card{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;transition:all .3s;}
+.rew-card.unlocked{border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.06);}
+.rew-icon{font-size:28px;flex-shrink:0;}
+.rew-title{font-size:15px;font-weight:800;margin-bottom:2px;}
+.rew-sub{font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- ── ONBOARDING ── -->
+<div id="onboarding">
+  <div class="ob-wrap">
+    <div class="ob-center">
+      <div class="mascot-wrap" onclick="wiggleMascot(this)" style="margin-bottom:4px;">
+        <svg class="mascot-svg mascot-bounce" viewBox="0 0 140 156" width="120" height="120" style="overflow:visible;">
+          <ellipse class="mascot-shadow" cx="70" cy="150" rx="36" ry="7" fill="rgba(245,158,11,0.28)"/>
+          <g class="mascot-leg1"><rect x="42" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="51" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
+          <g class="mascot-leg2"><rect x="80" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="89" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
+          <rect x="108" y="17" width="10" height="88" rx="3" fill="#fefce8"/>
+          <rect x="17" y="15" width="15" height="92" rx="7" fill="#92400e"/>
+          <rect x="30" y="13" width="80" height="94" rx="7" fill="#f59e0b"/>
+          <rect x="30" y="13" width="80" height="28" rx="7" fill="#fcd34d" opacity="0.35"/>
+          <rect x="40" y="21" width="60" height="5" rx="2.5" fill="#fde68a" opacity="0.9"/>
+          <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.4"/>
+          <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.4"/>
+          <path d="M 45 46 Q 55 41 65 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M 75 46 Q 85 41 95 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="55" cy="59" r="12" fill="white"/>
+          <circle cx="85" cy="59" r="12" fill="white"/>
+          <g class="mascot-blink">
+            <circle cx="57" cy="60" r="7" fill="#1c0a00"/>
+            <circle cx="87" cy="60" r="7" fill="#1c0a00"/>
+            <circle cx="60" cy="56" r="2.8" fill="white"/>
+            <circle cx="90" cy="56" r="2.8" fill="white"/>
+          </g>
+          <path d="M 47 78 Q 70 97 93 78" stroke="#92400e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <g class="mascot-arm1"><rect x="3" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="4" cy="66" r="10" fill="#fbbf24"/></g>
+          <g class="mascot-arm2"><rect x="108" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="136" cy="66" r="10" fill="#fbbf24"/></g>
+        </svg>
+      </div>
+      <h1 class="ob-title" id="ob-title">Welcome to Zi-Bee Reads!</h1>
+      <p class="ob-sub" id="ob-sub">Tell us a little about yourself so we can personalise your experience.</p>
+    </div>
+    <div class="ob-form">
+      <label class="ob-label" id="ob-name-lbl">Your Name</label>
+      <input class="ob-input" id="ob-name" type="text" placeholder="e.g. Amara" maxlength="40"/>
+      <p id="ob-name-err" style="color:#f87171;font-size:12px;margin-top:-10px;margin-bottom:10px;display:none;">Please enter your name</p>
+
+      <label class="ob-label" id="ob-age-lbl">Age Group</label>
+      <div class="age-grid" id="ageGrid">
+        <div class="age-chip" onclick="pickAge(this,'5-8')">Kids<span>Ages 5–8</span></div>
+        <div class="age-chip" onclick="pickAge(this,'9-12')">Tweens<span>Ages 9–12</span></div>
+        <div class="age-chip selected" onclick="pickAge(this,'13-17')">Teens<span>Ages 13–17</span></div>
+        <div class="age-chip" onclick="pickAge(this,'18+')">Adults<span>18+</span></div>
+      </div>
+
+      <label class="ob-label" id="ob-email-lbl">Email Address</label>
+      <input class="ob-input" id="ob-email" type="email" placeholder="e.g. amara@email.com"/>
+      <p id="ob-email-err" style="color:#f87171;font-size:12px;margin-top:-10px;margin-bottom:10px;display:none;">Please enter a valid email</p>
+
+      <label class="ob-check" onclick="toggleRemember()">
+        <div class="ob-checkbox on" id="rememberBox">✓</div>
+        <div class="ob-check-txt" id="ob-remember-txt">Remember me on this device<small id="ob-remember-sub">You won't need to sign in again on this device</small></div>
+      </label>
+
+      <button class="ob-btn" id="ob-submit-btn" onclick="submitOnboarding()">Let's Read! 📚</button>
+      <p class="ob-privacy" id="ob-privacy">Your info stays on this device only. We never share it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app" style="display:none;">
+<nav>
+  <div class="nav-top">
+    <div class="nav-logo">🐝 Zi-Bee Reads</div>
+    <select class="lang-sel" onchange="setLang(this.value)" id="langSel">
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="pt">🇧🇷 Português</option>
+      <option value="sw">🇰🇪 Kiswahili</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="ja">🇯🇵 日本語</option>
+    </select>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="show('home')" id="tab-home">🏠 Home</button>
+    <button class="tab-btn" onclick="show('rec')" id="tab-rec">✨ Discover</button>
+    <button class="tab-btn" onclick="show('tracker')" id="tab-tracker">📚 My Books</button>
+    <button class="tab-btn" onclick="show('quiz')" id="tab-quiz">🎯 Quiz</button>
+    <button class="tab-btn" onclick="show('picks')" id="tab-picks">💰 Affordable</button>
+    <button class="tab-btn" onclick="show('challenge')" id="tab-challenge">🏆 Challenge</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="mascot-wrap" onclick="wiggleMascot(this)" style="margin-bottom:8px;">
+      <svg class="mascot-svg mascot-bounce" viewBox="0 0 140 156" width="140" height="140" style="overflow:visible;">
+        <ellipse class="mascot-shadow" cx="70" cy="150" rx="36" ry="7" fill="rgba(245,158,11,0.28)"/>
+        <g class="mascot-leg1"><rect x="42" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="51" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
+        <g class="mascot-leg2"><rect x="80" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="89" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
+        <rect x="108" y="17" width="10" height="88" rx="3" fill="#fefce8"/>
+        <rect x="17" y="15" width="15" height="92" rx="7" fill="#92400e"/>
+        <rect x="30" y="13" width="80" height="94" rx="7" fill="#f59e0b"/>
+        <rect x="30" y="13" width="80" height="28" rx="7" fill="#fcd34d" opacity="0.35"/>
+        <rect x="40" y="21" width="60" height="5" rx="2.5" fill="#fde68a" opacity="0.9"/>
+        <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.4"/>
+        <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.4"/>
+        <path d="M 45 46 Q 55 41 65 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 75 46 Q 85 41 95 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="55" cy="59" r="12" fill="white"/>
+        <circle cx="85" cy="59" r="12" fill="white"/>
+        <g class="mascot-blink">
+          <circle cx="57" cy="60" r="7" fill="#1c0a00"/>
+          <circle cx="87" cy="60" r="7" fill="#1c0a00"/>
+          <circle cx="60" cy="56" r="2.8" fill="white"/>
+          <circle cx="90" cy="56" r="2.8" fill="white"/>
+        </g>
+        <path d="M 47 78 Q 70 97 93 78" stroke="#92400e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <g class="mascot-arm1"><rect x="3" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="4" cy="66" r="10" fill="#fbbf24"/></g>
+        <g class="mascot-arm2"><rect x="108" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="136" cy="66" r="10" fill="#fbbf24"/></g>
+      </svg>
+    </div>
+    <h1 class="home-title" id="home-title">Zi-Bee Reads</h1>
+    <p class="home-tagline" id="home-tagline">Your Reading Journey Starts Here. Like a warm hug from a bookish friend.</p>
+    <div id="welcome-banner" class="welcome-banner" style="display:none;">
+      <div class="wb-emoji" id="wb-emoji">📖</div>
+      <div><div class="wb-name" id="wb-name"></div><div class="wb-tip" id="wb-tip"></div></div>
+    </div>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
+</div>
+
+<!-- RECOMMENDER -->
+<div class="screen" id="screen-rec">
+  <h1 class="page-title" id="rec-title">✨ Discover Your <span>Next Book</span></h1>
+  <p class="page-sub" id="rec-sub">Tell us what you're looking for and we'll find the perfect match.</p>
+  <div class="card">
+    <label class="lbl" id="rec-age-lbl">Age Group</label>
+    <div class="chip-grid" id="recAgeChips"></div>
+    <label class="lbl" id="rec-genre-lbl">Genre</label>
+    <div class="chip-grid" id="recGenreChips"></div>
+    <label class="lbl" id="rec-mood-lbl">Mood</label>
+    <div class="chip-grid" id="recMoodChips"></div>
+    <label class="lbl" style="margin-top:4px;" id="rec-lang-lbl">Recommendation Language</label>
+    <select class="inp" id="recLangSel" style="margin-bottom:16px;">
+      <option value="English">English</option>
+      <option value="French">French / Français</option>
+      <option value="Spanish">Spanish / Español</option>
+      <option value="Portuguese">Portuguese / Português</option>
+      <option value="Swahili">Swahili / Kiswahili</option>
+      <option value="Arabic">Arabic / العربية</option>
+      <option value="Japanese">Japanese / 日本語</option>
+    </select>
+    <button class="btn btn-gold w100" id="recBtn" onclick="getRecommendation()" disabled>✨ Find My Books</button>
+  </div>
+  <div id="recResult" style="display:none;"><div class="ai-box" id="recOutput"></div></div>
+</div>
+
+<!-- TRACKER -->
+<div class="screen" id="screen-tracker">
+  <h1 class="page-title" id="track-title">📚 Reading <span>Tracker</span></h1>
+  <p class="page-sub" id="track-sub">Keep a log of your reading adventures.</p>
+  <div class="goal-card" id="goalCard">
+    <svg width="120" height="120" style="flex-shrink:0;">
+      <circle cx="60" cy="60" r="50" fill="none" stroke-width="10" stroke="rgba(255,255,255,0.08)"/>
+      <circle id="ringCircle" cx="60" cy="60" r="50" fill="none" stroke-width="10" stroke="#f59e0b" stroke-linecap="round"
+        stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset .7s ease;"/>
+      <text x="60" y="55" text-anchor="middle" font-family="Playfair Display,serif" font-size="22" font-weight="900" fill="white" id="ringDone">0</text>
+      <text x="60" y="72" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" id="ringGoal">/ 5</text>
+    </svg>
+    <div class="goal-info">
+      <div class="goal-lbl" id="goal-lbl">Monthly Goal</div>
+      <div class="goal-val" id="goal-val">0 of 5 books</div>
+      <div class="goal-adj" id="goal-adj">Adjust your monthly reading goal</div>
+      <div class="goal-btns">
+        <button class="goal-btn" onclick="adjustGoal(-1)">−</button>
+        <div class="goal-num" id="goalNum">5</div>
+        <button class="goal-btn" onclick="adjustGoal(1)">+</button>
+      </div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" id="sTotal">0</div><div class="stat-lbl" id="s-added">Added</div></div>
+    <div class="stat"><div class="stat-num" id="sDone" style="color:#34d399;">0</div><div class="stat-lbl" id="s-finished">Finished</div></div>
+    <div class="stat"><div class="stat-num" id="sPct">0%</div><div class="stat-lbl" id="s-progress">Progress</div></div>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div class="card">
+    <label class="lbl" id="track-add-lbl">Add a Book</label>
+    <input class="inp" id="bTitle" placeholder="Book title…"/>
+    <input class="inp" id="bAuthor" placeholder="Author (optional)"/>
+    <button class="btn btn-gold w100" onclick="addBook()" id="track-add-btn">+ Add Book</button>
+  </div>
+  <div id="bookList"></div>
+  <p id="emptyMsg" style="text-align:center;color:var(--muted);padding:20px 0;" id="track-empty">No books yet. Add your first one above! 📖</p>
+</div>
+
+<!-- QUIZ -->
+<div class="screen" id="screen-quiz">
+  <div id="quizStart" class="quiz-start">
+    <div class="quiz-start-icon">✨</div>
+    <h2 id="quiz-title">Which Character Are You?</h2>
+    <p id="quiz-sub">Find out your reading personality in 5 quick questions.</p>
+    <button class="btn btn-gold" onclick="startQuiz()" id="quiz-start-btn">Start the Quiz →</button>
+  </div>
+  <div id="quizArea" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span id="qProg" style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;"></span>
+      <span id="qPct" style="font-size:12px;font-weight:800;color:var(--muted);"></span>
+    </div>
+    <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="quizProgFill" style="width:0%"></div></div>
+    <div class="quiz-q" id="qText"></div>
+    <div class="quiz-opts" id="qOpts"></div>
+  </div>
+  <div id="quizResult" style="display:none;">
+    <div class="result-card">
+      <div class="result-icon" id="rEmoji"></div>
+      <div class="result-name" id="rName"></div>
+      <div class="result-desc" id="rDesc"></div>
+      <button class="btn btn-outline" onclick="resetQuiz()" id="quiz-retry-btn">🔄 Retake Quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- PICKS -->
+<div class="screen" id="screen-picks">
+  <h1 class="page-title" id="picks-title">💰 Affordable <span>Picks</span></h1>
+  <p class="page-sub" id="picks-sub">Amazing stories under $5, handpicked by Zi-Bee Reads.</p>
+  <div class="filter-row" id="picksFilter"></div>
+  <div class="picks-grid" id="picksGrid"></div>
+</div>
+
+<!-- CHALLENGE -->
+<div class="screen" id="screen-challenge">
+  <h1 class="page-title" id="chal-title">🏆 30-Day Reading <span>Challenge</span></h1>
+  <p class="page-sub" id="chal-sub">Read for at least 15 minutes a day. Tap a circle to mark it complete!</p>
+  <div class="chal-hero">
+    <h2 id="chal-hero-title">May Reading Challenge 🐝</h2>
+    <p id="chal-hero-sub">Tap each day you read to track your progress</p>
+    <span class="badge badge-gold" id="chalCount">0 / 30 days</span>
+  </div>
+  <div class="days-grid" id="daysGrid"></div>
+  <hr class="div"/>
+  <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:14px;" id="chal-rewards">🎁 Your Rewards</h3>
+  <div class="rew-card" id="rew-card-7"><div class="rew-icon">⭐</div><div style="flex:1"><div class="rew-title" id="rew-7-title">7-Day Streak</div><div class="rew-sub" id="rew-7-sub">Read for 7 days</div></div><div id="rew7"><span class="badge badge-muted" id="rew7-badge">🔒 Locked</span></div></div>
+  <div class="rew-card" id="rew-card-15"><div class="rew-icon">🌟</div><div style="flex:1"><div class="rew-title" id="rew-15-title">15-Day Streak</div><div class="rew-sub" id="rew-15-sub">Read for 15 days</div></div><div id="rew15"><span class="badge badge-muted" id="rew15-badge">🔒 Locked</span></div></div>
+  <div class="rew-card" id="rew-card-30"><div class="rew-icon">🏆</div><div style="flex:1"><div class="rew-title" id="rew-30-title">30-Day Champion</div><div class="rew-sub" id="rew-30-sub">Read for 30 days</div></div><div id="rew30"><span class="badge badge-muted" id="rew30-badge">🔒 Locked</span></div></div>
+</div>
+</div><!-- end #app -->
+
+<script>
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────
+const T = {
+  en:{
+    nav:["🏠 Home","✨ Discover","📚 My Books","🎯 Quiz","💰 Affordable","🏆 Challenge"],
+    home_tagline:"Your Reading Journey Starts Here. Like a warm hug from a bookish friend.",
+    home_find:"Find a Book",
+    feats:[
+      {icon:"✨",name:"Discover Books",desc:"Find your next great read with our smart recommender."},
+      {icon:"📚",name:"Reading Tracker",desc:"Log your books and see your progress grow."},
+      {icon:"🎯",name:"Book Quiz",desc:"Which character are you? Take the quiz to find out!"},
+      {icon:"💰",name:"Affordable Picks",desc:"Curated lists of amazing stories under $5."},
+      {icon:"🏆",name:"30-Day Challenge",desc:"Build a reading habit and earn special badges."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"Every story is a new adventure! Pick a book with a fun cover today."},"9-12":{e:"🚀",t:"The best books will take you to worlds you've never imagined. Ready to explore?"},"13-17":{e:"💫",t:"Reading builds the person you're becoming. Find a story that challenges you."},"18+":{e:"📖",t:"Great books sharpen the mind and open the heart. What will you discover next?"}},
+    rec_title:"Discover Your Next Book",rec_sub:"Tell us what you're looking for and we'll find the perfect match.",
+    rec_age:"Age Group",rec_genre:"Genre",rec_mood:"Mood",rec_lang:"Recommendation Language",rec_btn:"✨ Find My Books",rec_searching:"Searching library…",
+    genres:["Adventure","Fantasy","Mystery","Romance","Sci-Fi","Non-Fiction","Horror","Humor"],
+    moods:["Thrilling","Cosy","Inspired","Emotional"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 Your Matches",
+    track_title:"Reading Tracker",track_sub:"Keep a log of your reading adventures.",
+    goal_lbl:"Monthly Goal",goal_val:(d,g)=>`${d} of ${g} books`,goal_reached:"🎉 Goal reached!",goal_adj:"Adjust your monthly reading goal",
+    s_added:"Added",s_finished:"Finished",s_progress:"Progress",
+    track_add:"Add a Book",track_title_ph:"Book title…",track_author_ph:"Author (optional)",track_add_btn:"+ Add Book",track_empty:"No books yet. Add your first one above! 📖",
+    quiz_title:"Which Character Are You?",quiz_sub:"Find out your reading personality in 5 quick questions.",quiz_start:"Start the Quiz →",quiz_retry:"🔄 Retake Quiz",
+    quiz_of:(n,t)=>`Question ${n} of ${t}`,quiz_result:"Your Result",
+    Qs:[
+      {q:"You have a free afternoon. What do you do?",opts:["Go on an outdoor adventure","Curl up and read quietly","Try to solve a tricky problem","Let your imagination run wild"]},
+      {q:"Your friends would describe you as:",opts:["Brave and fearless","Curious and thoughtful","Warm and caring","Creative and dreamy"]},
+      {q:"Your ideal superpower would be:",opts:["Super strength","Invisibility","Healing others","Shape-shifting into anything"]},
+      {q:"Your favourite story ending is:",opts:["The hero saves the day!","A shocking plot twist","Everyone finds happiness","A meaningful bittersweet close"]},
+      {q:"If you could live anywhere it would be:",opts:["A wild jungle or mountain","A secret underground library","A cosy village by the sea","A floating city in the clouds"]}
+    ],
+    results:[
+      {e:"⚔️",n:"The Brave Hero",d:"Bold, fearless and action-ready! You fit right in with Harry Potter or Katniss Everdeen. Adventure stories are your calling."},
+      {e:"🔍",n:"The Clever Detective",d:"Sharp-minded and endlessly curious. Mystery and thriller books are your world — just like Sherlock Holmes."},
+      {e:"💫",n:"The Kind Soul",d:"You lead with your heart. Stories about friendship, growth and love speak to you — think Matilda or Wonder."},
+      {e:"🌿",n:"The Dreamer",d:"Your imagination has no limits. You live for stories that take you to other worlds."}
+    ],
+    picks_title:"Affordable Picks",picks_sub:"Amazing stories shouldn't break the bank. Here are curated picks under $5.",
+    filter_all:"All Ages",filter_kids:"Kids 5–12",filter_teen:"Teens 13–17",filter_ya:"Adults",picks_by:"by",picks_find:"🛒 Find on Amazon",
+    chal_title:"30-Day Reading Challenge",chal_sub:"Read for at least 15 minutes a day. Tap a circle to mark it complete!",
+    chal_hero:"May Reading Challenge 🐝",chal_hero_sub:"Tap each day you read to track your progress",
+    chal_rewards:"🎁 Your Rewards",
+    rew:["Bookworm in Training","Avid Reader","Literary Master"],
+    rew_sub:(n)=>`Read for ${n} days`,
+    locked:"🔒 Locked",unlocked:"✅ Unlocked",
+    ob_title:"Welcome to Zi-Bee Reads!",ob_sub:"Tell us about yourself so we can personalise your experience.",
+    ob_name:"Your Name",ob_age:"Age Group",ob_email:"Email Address",ob_remember:"Remember me on this device",ob_remember_sub:"You won't need to sign in again",ob_btn:"Let's Read! 📚",ob_privacy:"Your info stays on this device only. We never share it."
+  },
+  fr:{
+    nav:["🏠 Accueil","✨ Découvrir","📚 Mes Livres","🎯 Quiz","💰 Abordables","🏆 Défi"],
+    home_tagline:"Votre voyage de lecture commence ici. Comme un câlin chaleureux d'un ami amoureux des livres.",
+    feats:[
+      {icon:"✨",name:"Découvrir des livres",desc:"Trouvez votre prochaine lecture grâce à notre recommandateur intelligent."},
+      {icon:"📚",name:"Suivi de lecture",desc:"Enregistrez vos livres et regardez votre progression grandir."},
+      {icon:"🎯",name:"Quiz de livres",desc:"Quel personnage êtes-vous ? Faites le quiz pour le savoir !"},
+      {icon:"💰",name:"Choix abordables",desc:"Des listes de belles histoires à moins de 5$."},
+      {icon:"🏆",name:"Défi 30 jours",desc:"Créez une habitude de lecture et gagnez des badges spéciaux."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"Chaque histoire est une nouvelle aventure !"},"9-12":{e:"🚀",t:"Les meilleurs livres vous emmèneront dans des mondes inimaginables."},"13-17":{e:"💫",t:"La lecture construit la personne que vous devenez."},"18+":{e:"📖",t:"Les grands livres aiguisent l'esprit et ouvrent le cœur."}},
+    rec_title:"Découvrez votre prochain livre",rec_sub:"Dites-nous ce que vous cherchez et nous trouverons la lecture parfaite.",
+    rec_age:"Tranche d'âge",rec_genre:"Genre",rec_mood:"Humeur",rec_lang:"Langue de recommandation",rec_btn:"✨ Trouver mes livres",rec_searching:"Recherche en cours…",
+    genres:["Aventure","Fantaisie","Mystère","Romance","Science-Fiction","Non-Fiction","Horreur","Humour"],
+    moods:["Palpitant","Cosy","Inspirant","Émouvant"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 Vos correspondances",
+    track_title:"Suivi de lecture",track_sub:"Gardez un journal de vos aventures de lecture.",
+    goal_lbl:"Objectif mensuel",goal_val:(d,g)=>`${d} livres sur ${g}`,goal_reached:"🎉 Objectif atteint !",goal_adj:"Ajustez votre objectif de lecture mensuel",
+    s_added:"Ajoutés",s_finished:"Terminés",s_progress:"Progression",
+    track_add:"Ajouter un livre",track_title_ph:"Titre du livre…",track_author_ph:"Auteur (facultatif)",track_add_btn:"+ Ajouter",track_empty:"Aucun livre encore. Ajoutez le premier ! 📖",
+    quiz_title:"Quel personnage êtes-vous ?",quiz_sub:"Découvrez votre personnalité de lecture en 5 questions.",quiz_start:"Commencer le quiz →",quiz_retry:"🔄 Recommencer",
+    quiz_of:(n,t)=>`Question ${n} sur ${t}`,quiz_result:"Votre résultat",
+    Qs:[
+      {q:"Vous avez un après-midi libre. Que faites-vous ?",opts:["Une aventure en plein air","Lire tranquillement","Résoudre un problème difficile","Laisser libre cours à votre imagination"]},
+      {q:"Vos amis vous décriraient comme :",opts:["Courageux et sans peur","Curieux et réfléchi","Chaleureux et attentionné","Créatif et rêveur"]},
+      {q:"Votre super-pouvoir idéal serait :",opts:["La super force","L'invisibilité","Guérir les autres","Se transformer en n'importe quoi"]},
+      {q:"Votre fin de récit préférée est :",opts:["Le héros sauve la mise !","Un retournement choquant","Tout le monde trouve le bonheur","Une fin douce-amère significative"]},
+      {q:"Si vous pouviez vivre n'importe où, ce serait :",opts:["Une jungle ou une montagne sauvage","Une bibliothèque souterraine secrète","Un village cosy au bord de la mer","Une ville flottante dans les nuages"]}
+    ],
+    results:[
+      {e:"⚔️",n:"Le Héros Courageux",d:"Audacieux et intrépide ! Vous vous entendriez bien avec Harry Potter ou Katniss Everdeen."},
+      {e:"🔍",n:"Le Détective Astucieux",d:"L'esprit vif et infiniment curieux. Les livres policiers sont votre monde."},
+      {e:"💫",n:"L'Âme Généreuse",d:"Vous guidez avec votre cœur. Les histoires d'amitié vous parlent."},
+      {e:"🌿",n:"Le Rêveur",d:"Votre imagination n'a pas de limites. Vous vivez pour des histoires dans d'autres mondes."}
+    ],
+    picks_title:"Choix abordables",picks_sub:"Les grandes histoires ne devraient pas coûter une fortune. Voici des choix à moins de 5$.",
+    filter_all:"Tous âges",filter_kids:"Enfants 5–12",filter_teen:"Adolescents 13–17",filter_ya:"Adultes",picks_by:"par",picks_find:"🛒 Trouver sur Amazon",
+    chal_title:"Défi de lecture 30 jours",chal_sub:"Lisez au moins 15 minutes par jour. Tapez un cercle pour le marquer !",
+    chal_hero:"Défi Lecture de Mai 🐝",chal_hero_sub:"Tapez chaque jour que vous lisez",
+    chal_rewards:"🎁 Vos récompenses",
+    rew:["Apprenti Lecteur","Lecteur Assidu","Maître Littéraire"],
+    rew_sub:(n)=>`Lire pendant ${n} jours`,
+    locked:"🔒 Verrouillé",unlocked:"✅ Débloqué",
+    ob_title:"Bienvenue sur Zi-Bee Reads !",ob_sub:"Parlez-nous de vous pour personnaliser votre expérience.",
+    ob_name:"Votre nom",ob_age:"Tranche d'âge",ob_email:"Adresse e-mail",ob_remember:"Se souvenir de moi",ob_remember_sub:"Vous n'aurez plus besoin de vous reconnecter",ob_btn:"C'est parti ! 📚",ob_privacy:"Vos informations restent sur cet appareil uniquement."
+  },
+  es:{
+    nav:["🏠 Inicio","✨ Descubrir","📚 Mis Libros","🎯 Quiz","💰 Económicos","🏆 Desafío"],
+    home_tagline:"Tu viaje de lectura comienza aquí. Como un abrazo cálido de un amigo apasionado por los libros.",
+    feats:[
+      {icon:"✨",name:"Descubrir libros",desc:"Encuentra tu próxima gran lectura con nuestro recomendador inteligente."},
+      {icon:"📚",name:"Rastreador de lecturas",desc:"Registra tus libros y mira crecer tu progreso."},
+      {icon:"🎯",name:"Quiz de libros",desc:"¿Qué personaje eres? ¡Haz el quiz para descubrirlo!"},
+      {icon:"💰",name:"Selecciones económicas",desc:"Listas de historias increíbles por menos de $5."},
+      {icon:"🏆",name:"Desafío 30 días",desc:"Crea un hábito de lectura y gana insignias especiales."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"¡Cada historia es una nueva aventura!"},"9-12":{e:"🚀",t:"Los mejores libros te llevarán a mundos que nunca imaginaste."},"13-17":{e:"💫",t:"La lectura construye la persona en quien te estás convirtiendo."},"18+":{e:"📖",t:"Los grandes libros agudizan la mente y abren el corazón."}},
+    rec_title:"Descubre tu próximo libro",rec_sub:"Cuéntanos qué buscas y encontraremos la lectura perfecta.",
+    rec_age:"Grupo de edad",rec_genre:"Género",rec_mood:"Estado de ánimo",rec_lang:"Idioma de recomendación",rec_btn:"✨ Encontrar mis libros",rec_searching:"Buscando en la biblioteca…",
+    genres:["Aventura","Fantasía","Misterio","Romance","Ciencia ficción","No ficción","Terror","Humor"],
+    moods:["Emocionante","Acogedor","Inspirador","Emotivo"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 Tus coincidencias",
+    track_title:"Rastreador de lecturas",track_sub:"Lleva un registro de tus aventuras de lectura.",
+    goal_lbl:"Meta mensual",goal_val:(d,g)=>`${d} de ${g} libros`,goal_reached:"🎉 ¡Meta alcanzada!",goal_adj:"Ajusta tu meta de lectura mensual",
+    s_added:"Añadidos",s_finished:"Terminados",s_progress:"Progreso",
+    track_add:"Añadir un libro",track_title_ph:"Título del libro…",track_author_ph:"Autor (opcional)",track_add_btn:"+ Añadir libro",track_empty:"Sin libros aún. ¡Añade el primero! 📖",
+    quiz_title:"¿Qué personaje eres?",quiz_sub:"Descubre tu personalidad lectora en 5 preguntas rápidas.",quiz_start:"Comenzar el quiz →",quiz_retry:"🔄 Repetir quiz",
+    quiz_of:(n,t)=>`Pregunta ${n} de ${t}`,quiz_result:"Tu resultado",
+    Qs:[
+      {q:"Tienes una tarde libre. ¿Qué haces?",opts:["Una aventura al aire libre","Acurrucarte a leer","Resolver un problema difícil","Dejar volar tu imaginación"]},
+      {q:"Tus amigos te describirían como:",opts:["Valiente e intrépido","Curioso y reflexivo","Cálido y compasivo","Creativo y soñador"]},
+      {q:"Tu superpoder ideal sería:",opts:["Superfuerza","Invisibilidad","Curar a otros","Transformarte en cualquier cosa"]},
+      {q:"Tu final de historia favorito es:",opts:["¡El héroe salva el día!","Un giro inesperado","Todos encuentran la felicidad","Un final agridulce significativo"]},
+      {q:"Si pudieras vivir en cualquier lugar sería:",opts:["Una jungla salvaje o montaña","Una biblioteca subterránea secreta","Un pueblo acogedor junto al mar","Una ciudad flotante entre nubes"]}
+    ],
+    results:[
+      {e:"⚔️",n:"El Héroe Valiente",d:"¡Audaz, intrépido y listo para la acción! Encajarías con Harry Potter o Katniss Everdeen."},
+      {e:"🔍",n:"El Detective Astuto",d:"Mente aguda e infinitamente curioso. Los libros de misterio son tu mundo."},
+      {e:"💫",n:"El Alma Bondadosa",d:"Líderas con el corazón. Las historias de amistad y amor te hablan."},
+      {e:"🌿",n:"El Soñador",d:"Tu imaginación no tiene límites. Vives para historias en otros mundos."}
+    ],
+    picks_title:"Selecciones económicas",picks_sub:"Las grandes historias no deben arruinarte. Aquí hay obras maestras por menos de $5.",
+    filter_all:"Todas las edades",filter_kids:"Niños 5–12",filter_teen:"Adolescentes 13–17",filter_ya:"Adultos",picks_by:"de",picks_find:"🛒 Encontrar en Amazon",
+    chal_title:"Desafío de lectura 30 días",chal_sub:"Lee al menos 15 minutos al día. ¡Toca un círculo para marcarlo!",
+    chal_hero:"Desafío Lector de Mayo 🐝",chal_hero_sub:"Toca cada día que leas",
+    chal_rewards:"🎁 Tus recompensas",
+    rew:["Lector en Formación","Lector Ávido","Maestro Literario"],
+    rew_sub:(n)=>`Lee durante ${n} días`,
+    locked:"🔒 Bloqueado",unlocked:"✅ Desbloqueado",
+    ob_title:"¡Bienvenido a Zi-Bee Reads!",ob_sub:"Cuéntanos sobre ti para personalizar tu experiencia.",
+    ob_name:"Tu nombre",ob_age:"Grupo de edad",ob_email:"Correo electrónico",ob_remember:"Recuérdame en este dispositivo",ob_remember_sub:"No necesitarás iniciar sesión de nuevo",ob_btn:"¡A leer! 📚",ob_privacy:"Tu información se queda solo en este dispositivo."
+  },
+  pt:{
+    nav:["🏠 Início","✨ Descobrir","📚 Meus Livros","🎯 Quiz","💰 Acessíveis","🏆 Desafio"],
+    home_tagline:"Sua jornada de leitura começa aqui. Como um abraço caloroso de um amigo apaixonado por livros.",
+    feats:[
+      {icon:"✨",name:"Descobrir livros",desc:"Encontre sua próxima leitura com nosso recomendador inteligente."},
+      {icon:"📚",name:"Rastreador de leituras",desc:"Registre seus livros e veja seu progresso crescer."},
+      {icon:"🎯",name:"Quiz de livros",desc:"Qual personagem é você? Faça o quiz para descobrir!"},
+      {icon:"💰",name:"Escolhas acessíveis",desc:"Listas de histórias incríveis por menos de $5."},
+      {icon:"🏆",name:"Desafio de 30 dias",desc:"Crie o hábito de leitura e ganhe emblemas especiais."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"Cada história é uma nova aventura!"},"9-12":{e:"🚀",t:"Os melhores livros vão te levar a mundos que você nunca imaginou."},"13-17":{e:"💫",t:"A leitura constrói a pessoa em quem você está se tornando."},"18+":{e:"📖",t:"Grandes livros afia a mente e abre o coração."}},
+    rec_title:"Descubra seu próximo livro",rec_sub:"Conte-nos o que procura e encontraremos a leitura perfeita.",
+    rec_age:"Faixa etária",rec_genre:"Gênero",rec_mood:"Humor",rec_lang:"Idioma de recomendação",rec_btn:"✨ Encontrar meus livros",rec_searching:"Pesquisando na biblioteca…",
+    genres:["Aventura","Fantasia","Mistério","Romance","Ficção científica","Não ficção","Terror","Humor"],
+    moods:["Emocionante","Aconchegante","Inspirador","Emotivo"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 Suas correspondências",
+    track_title:"Rastreador de leituras",track_sub:"Mantenha um registro das suas aventuras de leitura.",
+    goal_lbl:"Meta mensal",goal_val:(d,g)=>`${d} de ${g} livros`,goal_reached:"🎉 Meta alcançada!",goal_adj:"Ajuste sua meta de leitura mensal",
+    s_added:"Adicionados",s_finished:"Concluídos",s_progress:"Progresso",
+    track_add:"Adicionar um livro",track_title_ph:"Título do livro…",track_author_ph:"Autor (opcional)",track_add_btn:"+ Adicionar livro",track_empty:"Nenhum livro ainda. Adicione o primeiro! 📖",
+    quiz_title:"Qual personagem é você?",quiz_sub:"Descubra sua personalidade leitora em 5 perguntas rápidas.",quiz_start:"Iniciar o quiz →",quiz_retry:"🔄 Refazer quiz",
+    quiz_of:(n,t)=>`Pergunta ${n} de ${t}`,quiz_result:"Seu resultado",
+    Qs:[
+      {q:"Você tem uma tarde livre. O que faz?",opts:["Uma aventura ao ar livre","Ler tranquilamente","Resolver um problema difícil","Deixar a imaginação fluir"]},
+      {q:"Seus amigos te descreveriam como:",opts:["Corajoso e destemido","Curioso e pensativo","Caloroso e atencioso","Criativo e sonhador"]},
+      {q:"Seu superpoder ideal seria:",opts:["Super força","Invisibilidade","Curar outros","Se transformar em qualquer coisa"]},
+      {q:"Seu final de história favorito é:",opts:["O herói salva o dia!","Uma reviravolta chocante","Todos encontram a felicidade","Um final agridoce significativo"]},
+      {q:"Se pudesse morar em qualquer lugar seria:",opts:["Uma selva ou montanha selvagem","Uma biblioteca secreta subterrânea","Um vilarejo acolhedor à beira-mar","Uma cidade flutuante nas nuvens"]}
+    ],
+    results:[
+      {e:"⚔️",n:"O Herói Corajoso",d:"Ousado, destemido e pronto para a ação! Você se encaixaria com Harry Potter ou Katniss Everdeen."},
+      {e:"🔍",n:"O Detetive Esperto",d:"Mente afiada e infinitamente curioso. Livros de mistério são seu mundo."},
+      {e:"💫",n:"A Alma Bondosa",d:"Você lidera com o coração. Histórias de amizade e amor falam com você."},
+      {e:"🌿",n:"O Sonhador",d:"Sua imaginação não tem limites. Você vive para histórias em outros mundos."}
+    ],
+    picks_title:"Escolhas acessíveis",picks_sub:"Grandes histórias não precisam custar caro. Aqui estão obras-primas por menos de $5.",
+    filter_all:"Todas as idades",filter_kids:"Crianças 5–12",filter_teen:"Adolescentes 13–17",filter_ya:"Adultos",picks_by:"de",picks_find:"🛒 Encontrar na Amazon",
+    chal_title:"Desafio de leitura de 30 dias",chal_sub:"Leia pelo menos 15 minutos por dia. Toque num círculo para marcá-lo!",
+    chal_hero:"Desafio de Leitura de Maio 🐝",chal_hero_sub:"Toque cada dia que ler",
+    chal_rewards:"🎁 Suas recompensas",
+    rew:["Leitor em Formação","Leitor Ávido","Mestre Literário"],
+    rew_sub:(n)=>`Leia por ${n} dias`,
+    locked:"🔒 Bloqueado",unlocked:"✅ Desbloqueado",
+    ob_title:"Bem-vindo ao Zi-Bee Reads!",ob_sub:"Conte-nos sobre você para personalizar sua experiência.",
+    ob_name:"Seu nome",ob_age:"Faixa etária",ob_email:"Endereço de e-mail",ob_remember:"Lembrar-me neste dispositivo",ob_remember_sub:"Você não precisará entrar novamente",ob_btn:"Vamos ler! 📚",ob_privacy:"Suas informações ficam apenas neste dispositivo."
+  },
+  sw:{
+    nav:["🏠 Nyumbani","✨ Gundua","📚 Vitabu Vyangu","🎯 Maswali","💰 Bei Nafuu","🏆 Changamoto"],
+    home_tagline:"Safari yako ya kusoma inaanza hapa. Kama kukumbatia kwa upole kutoka kwa rafiki mpendwa wa vitabu.",
+    feats:[
+      {icon:"✨",name:"Gundua vitabu",desc:"Pata usomaji wako ujao na mpendekezo wetu wa akili."},
+      {icon:"📚",name:"Kufuatilia Usomaji",desc:"Rekodi vitabu vyako na uone maendeleo yako yakikua."},
+      {icon:"🎯",name:"Maswali ya Vitabu",desc:"Wewe ni mhusika gani? Fanya maswali kujua!"},
+      {icon:"💰",name:"Chaguo la Bei Nafuu",desc:"Orodha ya hadithi nzuri chini ya $5."},
+      {icon:"🏆",name:"Changamoto ya Siku 30",desc:"Jenga tabia ya kusoma na upate beji maalum."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"Kila hadithi ni safari mpya ya kusisimua!"},"9-12":{e:"🚀",t:"Vitabu bora vitakupeleka katika ulimwengu usiofikiriwa."},"13-17":{e:"💫",t:"Kusoma kunakujenga uwe mtu bora zaidi."},"18+":{e:"📖",t:"Vitabu vikubwa vinakuza akili na kufungua moyo."}},
+    rec_title:"Gundua Kitabu Chako Kijacho",rec_sub:"Tuambie unachotafuta, na tutakupata usomaji kamili.",
+    rec_age:"Kundi la Umri",rec_genre:"Aina",rec_mood:"Hali ya Hisia",rec_lang:"Lugha ya Mapendekezo",rec_btn:"✨ Tafuta Vitabu Vyangu",rec_searching:"Kutafuta kwenye maktaba…",
+    genres:["Msisimko","Fantasia","Siri","Mapenzi","Sayansi ya Kubuni","Ukweli","Hofu","Ucheshi"],
+    moods:["Ya Kusisimua","Starehe","Iliyohamasisha","Yenye Hisia"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 Mechi Zako",
+    track_title:"Kufuatilia Usomaji",track_sub:"Hifadhi kumbukumbu ya safari zako za kusoma.",
+    goal_lbl:"Lengo la Mwezi",goal_val:(d,g)=>`Vitabu ${d} kati ya ${g}`,goal_reached:"🎉 Lengo limefikiwa!",goal_adj:"Rekebisha lengo lako la kusoma kila mwezi",
+    s_added:"Imeongezwa",s_finished:"Imekamilika",s_progress:"Maendeleo",
+    track_add:"Ongeza Kitabu",track_title_ph:"Jina la kitabu…",track_author_ph:"Mwandishi (si lazima)",track_add_btn:"+ Ongeza Kitabu",track_empty:"Hakuna vitabu bado. Ongeza cha kwanza! 📖",
+    quiz_title:"Wewe ni Mhusika Gani?",quiz_sub:"Gundua utu wako wa kusoma kwa maswali 5 ya haraka.",quiz_start:"Anza Maswali →",quiz_retry:"🔄 Rudia Maswali",
+    quiz_of:(n,t)=>`Swali ${n} la ${t}`,quiz_result:"Matokeo Yako",
+    Qs:[
+      {q:"Una mchana wa bure. Unafanya nini?",opts:["Kutoka nje kwa msisimko","Kukaa na kusoma kwa utulivu","Jaribu kutatua tatizo gumu","Acha mawazo yako yaruke huru"]},
+      {q:"Marafiki wako wangekuelezea kama:",opts:["Shujaa asiye na woga","Mwenye udadisi na makini","Mwenye upendo na huruma","Mbunifu na mwenye ndoto"]},
+      {q:"Nguvu yako ya ajabu ingekuwa:",opts:["Nguvu kuu","Kutoweka","Kuponya wengine","Kubadilika kuwa chochote"]},
+      {q:"Mwisho wako wa hadithi unaopenda ni:",opts:["Shujaa anaokoa siku!","Mgeuko wa kushangaza","Kila mtu anapata furaha","Mwisho wenye utata mzuri"]},
+      {q:"Kama ungeweza kuishi mahali popote ingekuwa:",opts:["Msitu wa porini au mlima","Maktaba ya siri chini ya ardhi","Kijiji cha starehe karibu na bahari","Mji unaoelea angani"]}
+    ],
+    results:[
+      {e:"⚔️",n:"Shujaa Jasiri",d:"Hodari, jasiri na tayari kuchukua hatua! Unafaa na Harry Potter au Katniss Everdeen."},
+      {e:"🔍",n:"Mpelelezi Hodari",d:"Akili kali na udadisi usio na mwisho. Vitabu vya siri ni ulimwengu wako."},
+      {e:"💫",n:"Roho Nzuri",d:"Unaongoza kwa moyo wako. Hadithi za urafiki na upendo zinakusemea."},
+      {e:"🌿",n:"Mwenye Ndoto",d:"Mawazo yako hayana mipaka. Unaishi kwa hadithi zinazokupeleka duniani nyingine."}
+    ],
+    picks_title:"Chaguo la Bei Nafuu",picks_sub:"Hadithi nzuri hazihitaji gharama kubwa. Hapa kuna kazi bora chini ya $5.",
+    filter_all:"Umri Wote",filter_kids:"Watoto 5–12",filter_teen:"Vijana 13–17",filter_ya:"Watu Wazima",picks_by:"na",picks_find:"🛒 Tafuta Amazon",
+    chal_title:"Changamoto ya Kusoma Siku 30",chal_sub:"Soma kwa dakika 15 kila siku. Gonga mduara kumarkisha!",
+    chal_hero:"Changamoto ya Kusoma ya Mei 🐝",chal_hero_sub:"Gonga kila siku unayosoma",
+    chal_rewards:"🎁 Tuzo Zako",
+    rew:["Msomaji Anayejifunza","Msomaji Makini","Bingwa wa Fasihi"],
+    rew_sub:(n)=>`Soma kwa siku ${n}`,
+    locked:"🔒 Imefungwa",unlocked:"✅ Imefunguliwa",
+    ob_title:"Karibu Zi-Bee Reads!",ob_sub:"Tuambie kidogo kuhusu wewe ili tuweze kubuni uzoefu wako.",
+    ob_name:"Jina Lako",ob_age:"Kundi la Umri",ob_email:"Anwani ya Barua Pepe",ob_remember:"Nikumbuke kwenye kifaa hiki",ob_remember_sub:"Hutahitaji kuingia tena",ob_btn:"Tusome! 📚",ob_privacy:"Taarifa zako zinabaki kwenye kifaa hiki tu."
+  },
+  ar:{
+    nav:["🏠 الرئيسية","✨ اكتشف","📚 كتبي","🎯 اختبار","💰 بأسعار مناسبة","🏆 التحدي"],
+    home_tagline:"رحلتك في القراءة تبدأ هنا. كعناق دافئ من صديق يعشق الكتب.",
+    feats:[
+      {icon:"✨",name:"اكتشف الكتب",desc:"اعثر على قراءتك التالية بمُوصي الكتب الذكي."},
+      {icon:"📚",name:"متتبع القراءة",desc:"سجّل كتبك وراقب تقدمك ينمو."},
+      {icon:"🎯",name:"اختبار الكتب",desc:"أي شخصية أنت؟ أجرِ الاختبار لتعرف!"},
+      {icon:"💰",name:"اختيارات بأسعار مناسبة",desc:"قوائم من قصص رائعة بأقل من $5."},
+      {icon:"🏆",name:"تحدي 30 يوماً",desc:"كوّن عادة القراءة واكسب شارات مميزة."}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"كل قصة مغامرة جديدة!"},"9-12":{e:"🚀",t:"أفضل الكتب ستأخذك إلى عوالم لم تتخيلها."},"13-17":{e:"💫",t:"القراءة تبني الشخص الذي تصبحه."},"18+":{e:"📖",t:"الكتب العظيمة تشحذ العقل وتفتح القلب."}},
+    rec_title:"اكتشف كتابك القادم",rec_sub:"أخبرنا عما تبحث عنه وسنجد القراءة المثالية.",
+    rec_age:"الفئة العمرية",rec_genre:"النوع",rec_mood:"المزاج",rec_lang:"لغة التوصية",rec_btn:"✨ ابحث عن كتبي",rec_searching:"جارٍ البحث في المكتبة…",
+    genres:["مغامرة","خيال","غموض","رومانسية","خيال علمي","غير خيالي","رعب","فكاهة"],
+    moods:["مثير","دافئ","ملهم","عاطفي"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 نتائجك",
+    track_title:"متتبع القراءة",track_sub:"احتفظ بسجل مغامراتك القرائية.",
+    goal_lbl:"الهدف الشهري",goal_val:(d,g)=>`${d} من ${g} كتب`,goal_reached:"🎉 تم تحقيق الهدف!",goal_adj:"اضبط هدفك الشهري للقراءة",
+    s_added:"مضاف",s_finished:"منتهٍ",s_progress:"التقدم",
+    track_add:"أضف كتاباً",track_title_ph:"عنوان الكتاب…",track_author_ph:"المؤلف (اختياري)",track_add_btn:"+ أضف كتاباً",track_empty:"لا كتب بعد. أضف أول كتاب! 📖",
+    quiz_title:"أي شخصية أنت؟",quiz_sub:"اكتشف شخصيتك القرائية في 5 أسئلة سريعة.",quiz_start:"ابدأ الاختبار →",quiz_retry:"🔄 أعد الاختبار",
+    quiz_of:(n,t)=>`سؤال ${n} من ${t}`,quiz_result:"نتيجتك",
+    Qs:[
+      {q:"لديك بعد ظهر مجاني. ماذا تفعل؟",opts:["مغامرة في الهواء الطلق","القراءة بهدوء","حل مشكلة صعبة","إطلاق العنان لخيالك"]},
+      {q:"سيصفك أصدقاؤك بأنك:",opts:["شجاع وجريء","فضولي ومتأمل","دافئ ومهتم","مبدع وحالم"]},
+      {q:"قوتك الخارقة المثالية ستكون:",opts:["القوة الخارقة","الاختفاء","شفاء الآخرين","التحول إلى أي شيء"]},
+      {q:"نهايتك المفضلة في القصة:",opts:["البطل ينقذ اليوم!","منعطف صادم","الجميع يجد السعادة","نهاية حلوة مُرّة ذات معنى"]},
+      {q:"لو أمكنك العيش في أي مكان فسيكون:",opts:["غابة برية أو جبل","مكتبة سرية تحت الأرض","قرية دافئة بجانب البحر","مدينة عائمة في السحاب"]}
+    ],
+    results:[
+      {e:"⚔️",n:"البطل الشجاع",d:"جريء وشجاع ومستعد للمغامرة! أنت تنتمي إلى عالم هاري بوتر أو كاتنيس إيفردين."},
+      {e:"🔍",n:"المحقق الذكي",d:"عقل حاد وفضول لا ينتهي. كتب الغموض والإثارة هي عالمك."},
+      {e:"💫",n:"الروح الطيبة",d:"تقود بقلبك. قصص الصداقة والنمو والحب تتحدث إليك."},
+      {e:"🌿",n:"الحالم",d:"خيالك لا حدود له. تعيش من أجل القصص التي تأخذك إلى عوالم أخرى."}
+    ],
+    picks_title:"اختيارات بأسعار مناسبة",picks_sub:"القصص الرائعة لا ينبغي أن تُكلف الكثير. إليك روائع مختارة بأقل من $5.",
+    filter_all:"جميع الأعمار",filter_kids:"أطفال 5–12",filter_teen:"مراهقون 13–17",filter_ya:"بالغون",picks_by:"بقلم",picks_find:"🛒 ابحث في Amazon",
+    chal_title:"تحدي القراءة لمدة 30 يوماً",chal_sub:"اقرأ لمدة 15 دقيقة على الأقل يومياً. انقر على دائرة لتحديدها!",
+    chal_hero:"تحدي القراءة - مايو 🐝",chal_hero_sub:"انقر على كل يوم تقرأ فيه",
+    chal_rewards:"🎁 مكافآتك",
+    rew:["قارئ مبتدئ","قارئ نشيط","سيد الأدب"],
+    rew_sub:(n)=>`اقرأ لـ ${n} أيام`,
+    locked:"🔒 مغلق",unlocked:"✅ مفتوح",
+    ob_title:"مرحباً بك في Zi-Bee Reads!",ob_sub:"أخبرنا عن نفسك حتى نتمكن من تخصيص تجربتك.",
+    ob_name:"اسمك",ob_age:"الفئة العمرية",ob_email:"عنوان البريد الإلكتروني",ob_remember:"تذكرني على هذا الجهاز",ob_remember_sub:"لن تحتاج إلى تسجيل الدخول مرة أخرى",ob_btn:"هيا نقرأ! 📚",ob_privacy:"معلوماتك تبقى على هذا الجهاز فقط."
+  },
+  ja:{
+    nav:["🏠 ホーム","✨ さがす","📚 マイ本","🎯 クイズ","💰 お手頃","🏆 チャレンジ"],
+    home_tagline:"読書の旅はここから始まります。本好きの友人からの温かいハグのように。",
+    feats:[
+      {icon:"✨",name:"本を発見する",desc:"スマートなレコメンダーで次の一冊を見つけよう。"},
+      {icon:"📚",name:"読書トラッカー",desc:"本を記録して、読書の進捗を確認しよう。"},
+      {icon:"🎯",name:"本のクイズ",desc:"あなたはどのキャラクター？クイズで確かめよう！"},
+      {icon:"💰",name:"お手頃ピック",desc:"5ドル以下の素晴らしい物語のリスト。"},
+      {icon:"🏆",name:"30日チャレンジ",desc:"読書習慣を作って、特別なバッジをゲットしよう。"}
+    ],
+    age_tips:{"5-8":{e:"🌈",t:"すべての物語は新しい冒険です！"},"9-12":{e:"🚀",t:"最高の本があなたを想像もしなかった世界へ連れて行きます。"},"13-17":{e:"💫",t:"読書はあなたがなっていく人を築きます。"},"18+":{e:"📖",t:"素晴らしい本は心を鋭くし、心を開きます。"}},
+    rec_title:"次に読む本を見つけよう",rec_sub:"あなたが求めるものを教えてください。最高の一冊を見つけます。",
+    rec_age:"年齢グループ",rec_genre:"ジャンル",rec_mood:"気分",rec_lang:"推薦言語",rec_btn:"✨ 本を探す",rec_searching:"図書館を検索中…",
+    genres:["冒険","ファンタジー","ミステリー","ロマンス","SF","ノンフィクション","ホラー","ユーモア"],
+    moods:["スリリング","のんびり","インスピレーション","感動的"],
+    ages:["5-8","9-12","13-17","18+"],
+    rec_your:"📚 あなたへのおすすめ",
+    track_title:"読書トラッカー",track_sub:"読書の旅の記録をつけましょう。",
+    goal_lbl:"今月の目標",goal_val:(d,g)=>`${g}冊中${d}冊`,goal_reached:"🎉 目標達成！",goal_adj:"月間読書目標を調整する",
+    s_added:"追加済み",s_finished:"読了",s_progress:"進捗",
+    track_add:"本を追加",track_title_ph:"本のタイトル…",track_author_ph:"著者（任意）",track_add_btn:"+ 本を追加",track_empty:"まだ本がありません。最初の本を追加しましょう！ 📖",
+    quiz_title:"あなたはどのキャラクター？",quiz_sub:"5つの質問で読書パーソナリティを発見しよう。",quiz_start:"クイズを始める →",quiz_retry:"🔄 もう一度挑戦",
+    quiz_of:(n,t)=>`質問 ${n} / ${t}`,quiz_result:"あなたの結果",
+    Qs:[
+      {q:"自由な午後、あなたは何をする？",opts:["屋外で冒険する","静かに読書する","難しい問題を解く","想像力を解き放つ"]},
+      {q:"友達はあなたをどう表現する？",opts:["勇敢で恐れ知らず","好奇心旺盛で思慮深い","温かく思いやりがある","クリエイティブで夢見がち"]},
+      {q:"理想の超能力は？",opts:["怪力","透明になれる","人を癒す力","何にでも変身できる"]},
+      {q:"好きな物語のエンディングは？",opts:["ヒーローが日を救う！","衝撃のどんでん返し","みんなが幸せになる","深い余韻を残すエンディング"]},
+      {q:"どこに住みたい？",opts:["野生のジャングルや山","秘密の地下図書館","海辺の居心地よい村","雲の上に浮かぶ都市"]}
+    ],
+    results:[
+      {e:"⚔️",n:"勇敢なヒーロー",d:"大胆で恐れ知らず、行動力抜群！ハリー・ポッターやカットニスと気が合いそう。"},
+      {e:"🔍",n:"賢い探偵",d:"鋭い頭脳と尽きない好奇心。ミステリーやスリラーの世界があなたのもの。"},
+      {e:"💫",n:"優しい魂",d:"心で導くあなた。友情、成長、愛の物語があなたに語りかける。"},
+      {e:"🌿",n:"夢想家",d:"あなたの想像力には限界がない。別の世界へ連れて行ってくれる物語のために生きている。"}
+    ],
+    picks_title:"お手頃ピック",picks_sub:"素晴らしい物語は高くない。5ドル以下の厳選された名作をどうぞ。",
+    filter_all:"全年齢",filter_kids:"子ども 5–12",filter_teen:"ティーン 13–17",filter_ya:"大人",picks_by:"著",picks_find:"🛒 Amazonで探す",
+    chal_title:"30日読書チャレンジ",chal_sub:"毎日15分以上読もう。円をタップして達成をマーク！",
+    chal_hero:"5月の読書チャレンジ 🐝",chal_hero_sub:"読んだ日をタップしてください",
+    chal_rewards:"🎁 あなたのご褒美",
+    rew:["読書見習い","熱心な読者","文学マスター"],
+    rew_sub:(n)=>`${n}日間読書する`,
+    locked:"🔒 ロック中",unlocked:"✅ 解除済み",
+    ob_title:"Zi-Bee Readsへようこそ！",ob_sub:"あなたについて教えてください。体験をカスタマイズします。",
+    ob_name:"お名前",ob_age:"年齢グループ",ob_email:"メールアドレス",ob_remember:"このデバイスで記憶する",ob_remember_sub:"次回からサインインが不要になります",ob_btn:"さあ読もう！ 📚",ob_privacy:"情報はこのデバイスにのみ保存されます。"
+  }
+};
+
+// ── PICKS DATA ────────────────────────────────────────────────────────────
+const PICKS=[
+  {title:"Charlotte's Web",author:"E.B. White",price:"$3.99",age:"kids",tags:["Classic","Animals","Friendship"],link:"https://amzn.to/3PkaexN"},
+  {title:"Matilda",author:"Roald Dahl",price:"$4.50",age:"kids",tags:["Magic","School","Funny"],link:"https://amzn.to/4dhdhPh"},
+  {title:"The BFG",author:"Roald Dahl",price:"$4.99",age:"kids",tags:["Fantasy","Adventure"],link:"https://amzn.to/3R76fFx"},
+  {title:"Diary of a Wimpy Kid",author:"Jeff Kinney",price:"$4.99",age:"kids",tags:["Humor","School"],link:"https://amzn.to/4nsB0AL"},
+  {title:"Stuart Little",author:"E.B. White",price:"$3.99",age:"kids",tags:["Adventure","Animals"],link:"https://amzn.to/4nngMIC"},
+  {title:"James and the Giant Peach",author:"Roald Dahl",price:"$4.50",age:"kids",tags:["Fantasy","Quirky"],link:"https://amzn.to/3PgYD2I"},
+  {title:"Pippi Longstocking",author:"Astrid Lindgren",price:"$4.25",age:"kids",tags:["Classic","Funny"],link:"https://amzn.to/4dtzxpw"},
+  {title:"The Outsiders",author:"S.E. Hinton",price:"$4.99",age:"teen",tags:["Classic","Coming of Age"],link:"https://amzn.to/49xofz9"},
+  {title:"Holes",author:"Louis Sachar",price:"$3.99",age:"teen",tags:["Mystery","Adventure"],link:"https://amzn.to/4tsG9tV"},
+  {title:"Wonder",author:"R.J. Palacio",price:"$4.99",age:"teen",tags:["Emotional","Kindness"],link:"https://amzn.to/433u3wz"},
+  {title:"The Giver",author:"Lois Lowry",price:"$4.50",age:"teen",tags:["Dystopian","Sci-Fi"],link:"https://amzn.to/4uO3lnO"},
+  {title:"Hatchet",author:"Gary Paulsen",price:"$3.99",age:"teen",tags:["Survival","Adventure"],link:"https://amzn.to/3Py7hdf"},
+  {title:"The Phantom Tollbooth",author:"Norton Juster",price:"$4.50",age:"teen",tags:["Fantasy","Funny"],link:"https://amzn.to/4dnnOZs"},
+  {title:"The Alchemist",author:"Paulo Coelho",price:"$4.99",age:"ya",tags:["Journey","Philosophy"],link:"https://amzn.to/4eEih2X"},
+  {title:"Animal Farm",author:"George Orwell",price:"$2.99",age:"ya",tags:["Classic","Allegory"],link:"https://amzn.to/3PFKyvP"},
+  {title:"Of Mice and Men",author:"John Steinbeck",price:"$3.99",age:"ya",tags:["Classic","Tragedy"],link:"https://amzn.to/42wwkjL"},
+  {title:"Lord of the Flies",author:"William Golding",price:"$3.99",age:"ya",tags:["Classic","Survival"],link:"https://amzn.to/43a9lLv"},
+  {title:"The House on Mango Street",author:"Sandra Cisneros",price:"$4.50",age:"ya",tags:["Coming of Age","Poetic"],link:"https://amzn.to/4uDqDwm"},
+  {title:"Siddhartha",author:"Hermann Hesse",price:"$2.99",age:"ya",tags:["Philosophy","Journey"],link:"https://amzn.to/4eEPnQh"},
+  {title:"Brave New World",author:"Aldous Huxley",price:"$4.99",age:"ya",tags:["Dystopian","Sci-Fi"],link:"https://amzn.to/49v7G6V"},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let lang="en", profile=null, remember=true, selectedAge="13-17";
+let books=JSON.parse(localStorage.getItem("zibee_books")||"[]");
+let goal=parseInt(localStorage.getItem("zibee_goal")||"5");
+let chalDays=JSON.parse(localStorage.getItem("zibee_chal")||"[]");
+let recSel={age:null,genre:null,mood:null};
+let qIdx=0, qAnswers=[];
+let pickFilter="all";
+
+// ── MASCOT ────────────────────────────────────────────────────────────────
+function wiggleMascot(el){
+  const svg=el.querySelector('.mascot-svg');
+  if(!svg)return;
+  svg.classList.remove('mascot-wiggle');
+  void svg.offsetWidth;
+  svg.classList.add('mascot-wiggle');
+  setTimeout(()=>svg.classList.remove('mascot-wiggle'),600);
+}
+
+// ── ONBOARDING ────────────────────────────────────────────────────────────
+function pickAge(el,val){
+  selectedAge=val;
+  document.querySelectorAll('.age-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleRemember(){
+  remember=!remember;
+  const box=document.getElementById('rememberBox');
+  box.classList.toggle('on',remember);
+  box.textContent=remember?'✓':'';
+  document.getElementById('ob-remember-sub').textContent=remember?'You won\'t need to sign in again':'You\'ll be signed out when you close the browser';
+}
+function submitOnboarding(){
+  const name=document.getElementById('ob-name').value.trim();
+  const email=document.getElementById('ob-email').value.trim();
+  let ok=true;
+  document.getElementById('ob-name-err').style.display='none';
+  document.getElementById('ob-email-err').style.display='none';
+  if(!name){document.getElementById('ob-name-err').style.display='block';ok=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('ob-email-err').style.display='block';ok=false;}
+  if(!ok)return;
+  profile={name,email,ageGroup:selectedAge};
+  const data=JSON.stringify(profile);
+  if(remember){localStorage.setItem('zibee_profile',data);sessionStorage.removeItem('zibee_profile');}
+  else{sessionStorage.setItem('zibee_profile',data);localStorage.removeItem('zibee_profile');}
+  document.getElementById('onboarding').classList.add('hidden');
+  document.getElementById('app').style.display='block';
+  initApp();
+}
+function loadProfile(){
+  const raw=localStorage.getItem('zibee_profile')||sessionStorage.getItem('zibee_profile');
+  if(raw){try{return JSON.parse(raw);}catch(e){}}return null;
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  const tabs=['home','rec','tracker','quiz','picks','challenge'];
+  tabs.forEach(t=>document.getElementById('tab-'+t).classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='quiz')renderQuizStart();
+  if(id==='picks')renderPicks();
+  if(id==='challenge')renderChallenge();
+  if(id==='tracker')renderBooks();
+}
+
+// ── LANGUAGE ──────────────────────────────────────────────────────────────
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l;
+  document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  applyTranslations();
+}
+function t(k){return T[lang]?.[k]??T.en[k]??k;}
+
+function applyTranslations(){
+  const L=T[lang]||T.en;
+  // nav tabs
+  const tabs=['home','rec','tracker','quiz','picks','challenge'];
+  tabs.forEach((id,i)=>{
+    const btn=document.getElementById('tab-'+id);
+    if(btn)btn.textContent=L.nav[i];
+  });
+  // home
+  document.getElementById('home-tagline').textContent=L.home_tagline;
+  renderFeats();
+  renderWelcomeBanner();
+  // rec
+  document.getElementById('rec-title').innerHTML=`✨ ${L.rec_title.replace(/(Book|livre|libro|livro|kitabu|كتاب|本)/i,'<span>$&</span>')}`;
+  document.getElementById('rec-sub').textContent=L.rec_sub;
+  document.getElementById('rec-age-lbl').textContent=L.rec_age;
+  document.getElementById('rec-genre-lbl').textContent=L.rec_genre;
+  document.getElementById('rec-mood-lbl').textContent=L.rec_mood;
+  document.getElementById('rec-lang-lbl').textContent=L.rec_lang;
+  document.getElementById('recBtn').textContent=L.rec_btn;
+  renderRecChips();
+  // tracker
+  document.getElementById('goal-lbl').textContent=L.goal_lbl;
+  document.getElementById('goal-adj').textContent=L.goal_adj;
+  document.getElementById('s-added').textContent=L.s_added;
+  document.getElementById('s-finished').textContent=L.s_finished;
+  document.getElementById('s-progress').textContent=L.s_progress;
+  document.getElementById('track-add-lbl').textContent=L.track_add;
+  document.getElementById('bTitle').placeholder=L.track_title_ph;
+  document.getElementById('bAuthor').placeholder=L.track_author_ph;
+  document.getElementById('track-add-btn').textContent=L.track_add_btn;
+  renderBooks();
+  // quiz
+  renderQuizStart();
+  // picks
+  document.getElementById('picks-sub').textContent=L.picks_sub;
+  renderPicks();
+  // challenge
+  document.getElementById('chal-sub').textContent=L.chal_sub;
+  document.getElementById('chal-hero-title').textContent=L.chal_hero;
+  document.getElementById('chal-hero-sub').textContent=L.chal_hero_sub;
+  document.getElementById('chal-rewards').textContent=L.chal_rewards;
+  document.getElementById('rew-7-title').textContent=L.rew[0];
+  document.getElementById('rew-15-title').textContent=L.rew[1];
+  document.getElementById('rew-30-title').textContent=L.rew[2];
+  document.getElementById('rew-7-sub').textContent=L.rew_sub(7);
+  document.getElementById('rew-15-sub').textContent=L.rew_sub(15);
+  document.getElementById('rew-30-sub').textContent=L.rew_sub(30);
+  renderChallenge();
+}
+
+// ── HOME ──────────────────────────────────────────────────────────────────
+function renderFeats(){
+  const L=T[lang]||T.en;
+  const ids=['rec','tracker','quiz','picks','challenge'];
+  document.getElementById('featGrid').innerHTML=L.feats.map((f,i)=>`
+    <div class="feat-card" onclick="show('${ids[i]}')">
+      <div class="feat-icon">${f.icon}</div>
+      <div class="feat-name">${f.name}</div>
+      <div class="feat-desc">${f.desc}</div>
+    </div>`).join('');
+}
+function renderWelcomeBanner(){
+  if(!profile)return;
+  const L=T[lang]||T.en;
+  const tip=L.age_tips?.[profile.ageGroup]||L.age_tips?.["18+"];
+  const banner=document.getElementById('welcome-banner');
+  if(tip){
+    document.getElementById('wb-emoji').textContent=tip.e;
+    document.getElementById('wb-name').textContent=`Welcome back, ${profile.name.split(' ')[0]}!`;
+    document.getElementById('wb-tip').textContent=tip.t;
+    banner.style.display='flex';
+  }
+}
+
+// ── RECOMMENDER ───────────────────────────────────────────────────────────
+function renderRecChips(){
+  const L=T[lang]||T.en;
+  const ages=L.ages||["5-8","9-12","13-17","18+"];
+  document.getElementById('recAgeChips').innerHTML=ages.map(a=>`<div class="chip ${recSel.age===a?'on':''}" onclick="selRec('age',this,'${a}')">${a}</div>`).join('');
+  document.getElementById('recGenreChips').innerHTML=L.genres.map((g,i)=>`<div class="chip ${recSel.genre===g?'on':''}" onclick="selRec('genre',this,'${g}')">${g}</div>`).join('');
+  document.getElementById('recMoodChips').innerHTML=L.moods.map((m,i)=>`<div class="chip ${recSel.mood===m?'on':''}" onclick="selRec('mood',this,'${m}')">${m}</div>`).join('');
+}
+function selRec(type,el,val){
+  el.closest('.chip-grid').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  recSel[type]=val;
+  document.getElementById('recBtn').disabled=!(recSel.age&&recSel.genre&&recSel.mood);
+}
+async function getRecommendation(){
+  const btn=document.getElementById('recBtn');
+  const box=document.getElementById('recResult');
+  const out=document.getElementById('recOutput');
+  const recLang=document.getElementById('recLangSel').value;
+  btn.disabled=true;
+  box.style.display='block';
+  const L=T[lang]||T.en;
+  out.innerHTML=`<div class="loading"><span></span><span></span><span></span></div><p style="color:var(--muted);margin-top:8px">${L.rec_searching}</p>`;
+  const prompt=`You are a book expert for Zi-Bee Reads — a brand making reading affordable for kids and young adults globally.
+Recommend 5 books for a reader aged ${recSel.age} who loves ${recSel.genre} and wants to feel ${recSel.mood}.
+Respond in ${recLang}.
+Format: One warm encouraging sentence intro, then list 5 books as:
+1. [Title] by [Author] – [One sentence on why it suits them perfectly]
+Keep it friendly, warm and encouraging for young readers.`;
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+    const d=await r.json();
+    const text=d.content.map(c=>c.text||'').join('');
+    const L2=T[lang]||T.en;
+    let html=`<h3>${L2.rec_your}</h3>`;
+    text.split('\n').filter(l=>l.trim()).forEach(l=>{
+      if(/^\d[\.\)]/.test(l.trim())){html+=`<p>📖 ${l.trim()}</p>`;}
+      else{html+=`<p style="font-style:italic;color:var(--honey);margin-bottom:14px">${l.trim()}</p>`;}
+    });
+    out.innerHTML=html;
+  }catch(e){out.innerHTML=`<p style="color:#f87171">Could not connect. Please try again.</p>`;}
+  btn.disabled=false;
+}
+
+// ── TRACKER ───────────────────────────────────────────────────────────────
+function saveBooks(){localStorage.setItem('zibee_books',JSON.stringify(books));}
+function adjustGoal(d){goal=Math.max(1,Math.min(50,goal+d));localStorage.setItem('zibee_goal',goal);renderBooks();}
+function addBook(){
+  const title=document.getElementById('bTitle').value.trim();
+  const author=document.getElementById('bAuthor').value.trim();
+  if(!title)return;
+  books.unshift({id:Date.now(),title,author,done:false,date:new Date().toLocaleDateString()});
+  saveBooks();
+  document.getElementById('bTitle').value='';
+  document.getElementById('bAuthor').value='';
+  renderBooks();
+}
+function toggleBook(id){const b=books.find(b=>b.id===id);if(b)b.done=!b.done;saveBooks();renderBooks();}
+function deleteBook(id){books=books.filter(b=>b.id!==id);saveBooks();renderBooks();}
+function renderBooks(){
+  const L=T[lang]||T.en;
+  const total=books.length,done=books.filter(b=>b.done).length;
+  const pct=total?Math.round(done/total*100):0;
+  const goalDone=Math.min(done,goal);
+  const circ=314,offset=circ-(circ*(goalDone/goal));
+  document.getElementById('ringCircle').style.strokeDashoffset=Math.max(0,offset);
+  document.getElementById('ringDone').textContent=done;
+  document.getElementById('ringGoal').textContent=`/ ${goal}`;
+  document.getElementById('goalNum').textContent=goal;
+  document.getElementById('goal-val').textContent=done>=goal?(L.goal_reached||'🎉 Goal reached!'):L.goal_val(done,goal);
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sDone').textContent=done;
+  document.getElementById('sPct').textContent=pct+'%';
+  document.getElementById('progFill').style.width=pct+'%';
+  const empty=document.getElementById('emptyMsg');
+  empty.style.display=total?'none':'block';
+  empty.textContent=L.track_empty;
+  document.getElementById('bookList').innerHTML=books.map(b=>`
+    <div class="book-row ${b.done?'done':''}">
+      <div class="chk ${b.done?'on':''}" onclick="toggleBook(${b.id})">${b.done?'✓':''}</div>
+      <div style="flex:1"><div class="b-title">${b.title}</div><div class="b-meta">${b.author?b.author+' · ':''}${b.date}</div></div>
+      <button class="del-btn" onclick="deleteBook(${b.id})">✕</button>
+    </div>`).join('');
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────────────────
+function renderQuizStart(){
+  const L=T[lang]||T.en;
+  document.getElementById('quiz-title').textContent=L.quiz_title;
+  document.getElementById('quiz-sub').textContent=L.quiz_sub;
+  document.getElementById('quiz-start-btn').textContent=L.quiz_start;
+  document.getElementById('quizStart').style.display='block';
+  document.getElementById('quizArea').style.display='none';
+  document.getElementById('quizResult').style.display='none';
+}
+function startQuiz(){
+  qIdx=0;qAnswers=[];
+  document.getElementById('quizStart').style.display='none';
+  document.getElementById('quizArea').style.display='block';
+  document.getElementById('quizResult').style.display='none';
+  renderQuestion();
+}
+function renderQuestion(){
+  const L=T[lang]||T.en;
+  const q=L.Qs[qIdx];
+  const pct=Math.round(qIdx/L.Qs.length*100);
+  document.getElementById('qProg').textContent=L.quiz_of(qIdx+1,L.Qs.length);
+  document.getElementById('qPct').textContent=pct+'%';
+  document.getElementById('quizProgFill').style.width=pct+'%';
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ(this,${i})">${o}</button>`).join('');
+}
+function answerQ(el,i){
+  qAnswers[qIdx]=i;
+  const L=T[lang]||T.en;
+  if(qIdx<L.Qs.length-1){qIdx++;renderQuestion();}
+  else showResult();
+}
+function showResult(){
+  const L=T[lang]||T.en;
+  const counts=[0,0,0,0];
+  qAnswers.forEach(a=>counts[a%4]++);
+  const r=L.results[counts.indexOf(Math.max(...counts))];
+  document.getElementById('quizArea').style.display='none';
+  document.getElementById('quizResult').style.display='block';
+  document.getElementById('rEmoji').textContent=r.e;
+  document.getElementById('rName').textContent=r.n;
+  document.getElementById('rDesc').textContent=r.d;
+  document.getElementById('quiz-retry-btn').textContent=(T[lang]||T.en).quiz_retry;
+}
+function resetQuiz(){startQuiz();}
+
+// ── PICKS ─────────────────────────────────────────────────────────────────
+function renderPicks(){
+  const L=T[lang]||T.en;
+  const filters=[{id:'all',label:L.filter_all},{id:'kids',label:L.filter_kids},{id:'teen',label:L.filter_teen},{id:'ya',label:L.filter_ya}];
+  document.getElementById('picksFilter').innerHTML=filters.map(f=>`<button class="filter-chip ${pickFilter===f.id?'on':''}" onclick="setPickFilter('${f.id}',this)">${f.label}</button>`).join('');
+  document.getElementById('picks-title').innerHTML=`💰 ${L.picks_title.split(' ').slice(0,1).join(' ')} <span>${L.picks_title.split(' ').slice(1).join(' ')}</span>`;
+  const filtered=pickFilter==='all'?PICKS:PICKS.filter(p=>p.age===pickFilter);
+  document.getElementById('picksGrid').innerHTML=filtered.map(p=>`
+    <div class="pick-card">
+      <div class="pick-top"><div class="pick-title">${p.title}</div><span class="pick-price">${p.price}</span></div>
+      <div class="pick-author">${L.picks_by} ${p.author}</div>
+      <div class="pick-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+      <a class="pick-link" href="${p.link}" target="_blank">${L.picks_find} →</a>
+    </div>`).join('');
+}
+function setPickFilter(f,el){
+  pickFilter=f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  renderPicks();
+}
+
+// ── CHALLENGE ─────────────────────────────────────────────────────────────
+function renderChallenge(){
+  const L=T[lang]||T.en;
+  const n=chalDays.length;
+  document.getElementById('chalCount').textContent=`${n} / 30`;
+  const grid=document.getElementById('daysGrid');
+  let html='';
+  for(let d=1;d<=30;d++){
+    const on=chalDays.includes(d);
+    html+=`<div class="day-dot ${on?'on':''}" onclick="toggleDay(${d})">${on?'✓':d}</div>`;
+  }
+  grid.innerHTML=html;
+  const unlock=(cardId,badgeId,cond)=>{
+    document.getElementById(cardId).classList.toggle('unlocked',cond);
+    document.getElementById(badgeId).innerHTML=cond?`<span class="badge badge-green">${L.unlocked}</span>`:`<span class="badge badge-muted">${L.locked}</span>`;
+  };
+  unlock('rew-card-7','rew7',n>=7);
+  unlock('rew-card-15','rew15',n>=15);
+  unlock('rew-card-30','rew30',n>=30);
+}
+function toggleDay(d){
+  chalDays=chalDays.includes(d)?chalDays.filter(x=>x!==d):[...chalDays,d];
+  localStorage.setItem('zibee_chal',JSON.stringify(chalDays));
+  renderChallenge();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+function initApp(){
+  renderFeats();
+  renderWelcomeBanner();
+  renderRecChips();
+  renderBooks();
+  renderQuizStart();
+  renderPicks();
+  renderChallenge();
+}
+
+// on load
+window.addEventListener('DOMContentLoaded',()=>{
+  profile=loadProfile();
+  if(profile){
+    document.getElementById('onboarding').classList.add('hidden');
+    document.getElementById('app').style.display='block';
+    initApp();
+  }
+});
+</script>
+</body>
+</html>
