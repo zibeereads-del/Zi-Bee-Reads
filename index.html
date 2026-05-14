@@ -75,9 +75,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(28,10,0,.92);backdrop-filt
 .inp:focus{border-color:var(–honey);}
 .inp::placeholder{color:rgba(255,255,255,.25);}
 .lbl{font-size:11px;font-weight:800;color:var(–muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:8px;}
-.chip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:16px;}
-.chip{padding:10px 12px;border-radius:12px;border:1.5px solid var(–border);background:var(–card);color:rgba(255,255,255,.65);font-size:13px;font-weight:700;cursor:pointer;text-align:center;transition:all .18s;user-select:none;}
-.chip:hover,.chip.on{background:rgba(245,158,11,.15);border-color:var(–honey);color:var(–honey);}
+.chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.chip{padding:16px 12px;border-radius:14px;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-align:center;transition:all .18s;user-select:none;}
+.chip:hover,.chip.on{background:rgba(245,158,11,.2);border-color:#f59e0b;color:#f59e0b;}
 .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;}
 .badge-gold{background:rgba(245,158,11,.2);color:var(–honey);}
 .badge-green{background:rgba(52,211,153,.15);color:#34d399;}
@@ -163,8 +163,8 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 .quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(–honey),var(–amber));border-radius:10px;transition:width .4s ease;}
 .quiz-q{font-family:‘Playfair Display’,serif;font-size:clamp(18px,4vw,26px);font-weight:700;margin-bottom:24px;line-height:1.3;text-align:center;padding:16px 0;}
 .quiz-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.quiz-opt{padding:16px 20px;border-radius:14px;border:1.5px solid var(–border);background:var(–card);color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;}
-.quiz-opt:hover,.quiz-opt.on{background:rgba(245,158,11,.15);border-color:var(–honey);color:var(–honey);}
+.quiz-opt{padding:18px 22px;border-radius:14px;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:#fff;font-size:15px;font-weight:700;cursor:pointer;text-align:left;transition:all .18s;width:100%;}
+.quiz-opt:hover{background:rgba(245,158,11,.15);border-color:#f59e0b;color:#fff;} .quiz-opt.on{background:rgba(245,158,11,.25);border-color:#f59e0b;color:#f59e0b;}
 .quiz-start{text-align:center;padding:40px 0;}
 .quiz-start-icon{font-size:60px;margin-bottom:16px;}
 .quiz-start h2{font-family:‘Playfair Display’,serif;font-size:28px;font-weight:900;margin-bottom:10px;}
@@ -190,8 +190,8 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 .pick-tags{display:flex;flex-wrap:wrap;gap:5px;}
 .ptag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);}
 .pick-formats{display:flex;gap:6px;flex-wrap:wrap;}
-.pick-fmt{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(–honey);text-decoration:none;padding:7px 12px;border-radius:20px;border:1.5px solid rgba(245,158,11,.3);background:rgba(245,158,11,.07);transition:all .2s;}
-.pick-fmt:hover{background:rgba(245,158,11,.2);border-color:var(–honey);}
+.pick-fmt{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#1c0a00;text-decoration:none;padding:8px 14px;border-radius:20px;border:none;background:#f59e0b;transition:all .2s;box-shadow:0 2px 8px rgba(245,158,11,.3);}
+.pick-fmt:hover{background:#d97706;transform:translateY(-1px);box-shadow:0 4px 12px rgba(245,158,11,.4);}
 
 /* ── CHALLENGE ── */
 .chal-hero{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(217,119,6,.07));border:1px solid rgba(245,158,11,.25);border-radius:var(–radius);padding:28px;text-align:center;margin-bottom:24px;}
@@ -208,6 +208,12 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 .rew-icon{font-size:28px;flex-shrink:0;}
 .rew-title{font-size:15px;font-weight:800;margin-bottom:2px;}
 .rew-sub{font-size:12px;color:var(–muted);}
+
+/* ── TITLE COLORS #ffb ── */
+.page-title,.home-title,.ob-title,.feat-name,.pick-title,.goal-val,.chal-hero h2,.quiz-start h2,.ai-box h3{color:#ffffbb;}
+.page-title span,.home-title span{color:#f59e0b;}
+.result-name{color:#f59e0b;}
+.nav-logo{color:#ffffbb !important;}
 </style>
 
 </head>
@@ -224,25 +230,49 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
           <g class="mascot-leg1"><rect x="42" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="51" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
           <g class="mascot-leg2"><rect x="80" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="89" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
           <rect x="108" y="17" width="10" height="88" rx="3" fill="#fefce8"/>
-          <rect x="17" y="15" width="15" height="92" rx="7" fill="#92400e"/>
+          <line x1="110" y1="25" x2="116" y2="25" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="32" x2="116" y2="32" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="39" x2="116" y2="39" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="46" x2="116" y2="46" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="53" x2="116" y2="53" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="60" x2="116" y2="60" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="67" x2="116" y2="67" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="74" x2="116" y2="74" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="81" x2="116" y2="81" stroke="#e5e0d0" stroke-width="1.2"/>
+          <line x1="110" y1="88" x2="116" y2="88" stroke="#e5e0d0" stroke-width="1.2"/>
+          <rect x="17" y="15" width="15" height="92" rx="4" fill="#92400e"/>
+          <rect x="28" y="15" width="4" height="92" fill="#7c3412" opacity="0.5"/>
           <rect x="30" y="13" width="80" height="94" rx="7" fill="#f59e0b"/>
-          <rect x="30" y="13" width="80" height="28" rx="7" fill="#fcd34d" opacity="0.35"/>
-          <rect x="40" y="21" width="60" height="5" rx="2.5" fill="#fde68a" opacity="0.9"/>
-          <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.4"/>
-          <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.4"/>
-          <path d="M 45 46 Q 55 41 65 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M 75 46 Q 85 41 95 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <circle cx="55" cy="59" r="12" fill="white"/>
-          <circle cx="85" cy="59" r="12" fill="white"/>
+          <rect x="30" y="13" width="80" height="26" rx="7" fill="#fcd34d" opacity="0.4"/>
+          <rect x="38" y="20" width="64" height="4" rx="2" fill="#fde68a" opacity="0.9"/>
+          <rect x="38" y="27" width="48" height="3" rx="1.5" fill="#fde68a" opacity="0.5"/>
+          <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.35"/>
+          <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.35"/>
+          <path d="M 43 48 Q 53 42 63 48" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M 77 48 Q 87 42 97 48" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="55" cy="60" r="13" fill="white"/>
+          <circle cx="85" cy="60" r="13" fill="white"/>
+          <circle cx="55" cy="60" r="12" fill="white" stroke="#e8e0d0" stroke-width="0.5"/>
+          <circle cx="85" cy="60" r="12" fill="white" stroke="#e8e0d0" stroke-width="0.5"/>
           <g class="mascot-blink">
-            <circle cx="57" cy="60" r="7" fill="#1c0a00"/>
-            <circle cx="87" cy="60" r="7" fill="#1c0a00"/>
-            <circle cx="60" cy="56" r="2.8" fill="white"/>
-            <circle cx="90" cy="56" r="2.8" fill="white"/>
+            <circle cx="57" cy="61" r="7.5" fill="#1c0a00"/>
+            <circle cx="87" cy="61" r="7.5" fill="#1c0a00"/>
+            <circle cx="60" cy="57" r="3" fill="white"/>
+            <circle cx="90" cy="57" r="3" fill="white"/>
+            <circle cx="54" cy="64" r="1.2" fill="#3d1a00" opacity="0.4"/>
+            <circle cx="84" cy="64" r="1.2" fill="#3d1a00" opacity="0.4"/>
           </g>
-          <path d="M 47 78 Q 70 97 93 78" stroke="#92400e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <g class="mascot-arm1"><rect x="3" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="4" cy="66" r="10" fill="#fbbf24"/></g>
-          <g class="mascot-arm2"><rect x="108" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="136" cy="66" r="10" fill="#fbbf24"/></g>
+          <path d="M 46 79 Q 70 98 94 79" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <g class="mascot-arm1">
+            <rect x="2" y="60" width="30" height="13" rx="6.5" fill="#d97706"/>
+            <circle cx="3" cy="66.5" r="10.5" fill="#fbbf24"/>
+            <circle cx="3" cy="66.5" r="7" fill="#f59e0b"/>
+          </g>
+          <g class="mascot-arm2">
+            <rect x="108" y="60" width="30" height="13" rx="6.5" fill="#d97706"/>
+            <circle cx="137" cy="66.5" r="10.5" fill="#fbbf24"/>
+            <circle cx="137" cy="66.5" r="7" fill="#f59e0b"/>
+          </g>
         </svg>
       </div>
       <h1 class="ob-title" id="ob-title">Welcome to Zi-Bee Reads!</h1>
@@ -284,7 +314,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <div id="app" style="display:none;">
 <nav>
   <div class="nav-top">
-    <div class="nav-logo">🐝 Zi-Bee Reads</div>
+    <div class="nav-logo"><img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="26" height="26" style="vertical-align:middle;margin-right:6px;border-radius:4px;" alt="Zi-Bee"/> Zi-Bee Reads</div>
     <select class="lang-sel" onchange="setLang(this.value)" id="langSel">
       <option value="en">🇬🇧 English</option>
       <option value="fr">🇫🇷 Français</option>
@@ -300,7 +330,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
     <button class="tab-btn" onclick="show('rec')" id="tab-rec">✨ Discover</button>
     <button class="tab-btn" onclick="show('tracker')" id="tab-tracker">📚 My Books</button>
     <button class="tab-btn" onclick="show('quiz')" id="tab-quiz">🎯 Quiz</button>
-    <button class="tab-btn" onclick="show('picks')" id="tab-picks">🐝 Zi-Bee Picks</button>
+    <button class="tab-btn" onclick="show('picks')" id="tab-picks"><img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="16" height="16" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee Picks</button>
     <button class="tab-btn" onclick="show('challenge')" id="tab-challenge">🏆 Challenge</button>
   </div>
 </nav>
@@ -310,30 +340,54 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <div class="screen active" id="screen-home">
   <div class="home-hero">
     <div class="mascot-wrap" onclick="wiggleMascot(this)" style="margin-bottom:8px;">
-      <svg class="mascot-svg mascot-bounce" viewBox="0 0 140 156" width="140" height="140" style="overflow:visible;">
+      <svg class="mascot-svg mascot-bounce" viewBox="0 0 140 156" width="160" height="160" style="overflow:visible;">
         <ellipse class="mascot-shadow" cx="70" cy="150" rx="36" ry="7" fill="rgba(245,158,11,0.28)"/>
         <g class="mascot-leg1"><rect x="42" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="51" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
         <g class="mascot-leg2"><rect x="80" y="99" width="18" height="36" rx="9" fill="#b45309"/><ellipse cx="89" cy="137" rx="16" ry="7.5" fill="#78350f"/></g>
         <rect x="108" y="17" width="10" height="88" rx="3" fill="#fefce8"/>
-        <rect x="17" y="15" width="15" height="92" rx="7" fill="#92400e"/>
+        <line x1="110" y1="25" x2="116" y2="25" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="32" x2="116" y2="32" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="39" x2="116" y2="39" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="46" x2="116" y2="46" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="53" x2="116" y2="53" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="60" x2="116" y2="60" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="67" x2="116" y2="67" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="74" x2="116" y2="74" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="81" x2="116" y2="81" stroke="#e5e0d0" stroke-width="1.2"/>
+        <line x1="110" y1="88" x2="116" y2="88" stroke="#e5e0d0" stroke-width="1.2"/>
+        <rect x="17" y="15" width="15" height="92" rx="4" fill="#92400e"/>
+        <rect x="28" y="15" width="4" height="92" fill="#7c3412" opacity="0.5"/>
         <rect x="30" y="13" width="80" height="94" rx="7" fill="#f59e0b"/>
-        <rect x="30" y="13" width="80" height="28" rx="7" fill="#fcd34d" opacity="0.35"/>
-        <rect x="40" y="21" width="60" height="5" rx="2.5" fill="#fde68a" opacity="0.9"/>
-        <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.4"/>
-        <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.4"/>
-        <path d="M 45 46 Q 55 41 65 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M 75 46 Q 85 41 95 46" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <circle cx="55" cy="59" r="12" fill="white"/>
-        <circle cx="85" cy="59" r="12" fill="white"/>
+        <rect x="30" y="13" width="80" height="26" rx="7" fill="#fcd34d" opacity="0.4"/>
+        <rect x="38" y="20" width="64" height="4" rx="2" fill="#fde68a" opacity="0.9"/>
+        <rect x="38" y="27" width="48" height="3" rx="1.5" fill="#fde68a" opacity="0.5"/>
+        <circle cx="40" cy="74" r="11" fill="#f87171" opacity="0.35"/>
+        <circle cx="100" cy="74" r="11" fill="#f87171" opacity="0.35"/>
+        <path d="M 43 48 Q 53 42 63 48" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M 77 48 Q 87 42 97 48" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="55" cy="60" r="13" fill="white"/>
+        <circle cx="85" cy="60" r="13" fill="white"/>
+        <circle cx="55" cy="60" r="12" fill="white" stroke="#e8e0d0" stroke-width="0.5"/>
+        <circle cx="85" cy="60" r="12" fill="white" stroke="#e8e0d0" stroke-width="0.5"/>
         <g class="mascot-blink">
-          <circle cx="57" cy="60" r="7" fill="#1c0a00"/>
-          <circle cx="87" cy="60" r="7" fill="#1c0a00"/>
-          <circle cx="60" cy="56" r="2.8" fill="white"/>
-          <circle cx="90" cy="56" r="2.8" fill="white"/>
+          <circle cx="57" cy="61" r="7.5" fill="#1c0a00"/>
+          <circle cx="87" cy="61" r="7.5" fill="#1c0a00"/>
+          <circle cx="60" cy="57" r="3" fill="white"/>
+          <circle cx="90" cy="57" r="3" fill="white"/>
+          <circle cx="54" cy="64" r="1.2" fill="#3d1a00" opacity="0.4"/>
+          <circle cx="84" cy="64" r="1.2" fill="#3d1a00" opacity="0.4"/>
         </g>
-        <path d="M 47 78 Q 70 97 93 78" stroke="#92400e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <g class="mascot-arm1"><rect x="3" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="4" cy="66" r="10" fill="#fbbf24"/></g>
-        <g class="mascot-arm2"><rect x="108" y="59" width="29" height="14" rx="7" fill="#d97706"/><circle cx="136" cy="66" r="10" fill="#fbbf24"/></g>
+        <path d="M 46 79 Q 70 98 94 79" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g class="mascot-arm1">
+          <rect x="2" y="60" width="30" height="13" rx="6.5" fill="#d97706"/>
+          <circle cx="3" cy="66.5" r="10.5" fill="#fbbf24"/>
+          <circle cx="3" cy="66.5" r="7" fill="#f59e0b"/>
+        </g>
+        <g class="mascot-arm2">
+          <rect x="108" y="60" width="30" height="13" rx="6.5" fill="#d97706"/>
+          <circle cx="137" cy="66.5" r="10.5" fill="#fbbf24"/>
+          <circle cx="137" cy="66.5" r="7" fill="#f59e0b"/>
+        </g>
       </svg>
     </div>
     <h1 class="home-title" id="home-title">Zi-Bee Reads</h1>
@@ -444,7 +498,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <!-- PICKS -->
 
 <div class="screen" id="screen-picks">
-  <h1 class="page-title" id="picks-title">🐝 Zi-Bee <span>Picks</span></h1>
+  <h1 class="page-title" id="picks-title"><img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="18" height="18" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee <span>Picks</span></h1>
   <p class="page-sub" id="picks-sub">Amazing stories handpicked by Zi-Bee.</p>
   <div class="filter-row" id="picksFilter"></div>
   <div class="picks-grid" id="picksGrid"></div>
@@ -456,7 +510,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
   <h1 class="page-title" id="chal-title">🏆 30-Day Reading <span>Challenge</span></h1>
   <p class="page-sub" id="chal-sub">Read for at least 15 minutes a day. Tap a circle to mark it complete!</p>
   <div class="chal-hero">
-    <h2 id="chal-hero-title">May Reading Challenge 🐝</h2>
+    <h2 id="chal-hero-title">May Reading Challenge</h2>
     <p id="chal-hero-sub">Tap each day you read to track your progress</p>
     <span class="badge badge-gold" id="chalCount">0 / 30 days</span>
   </div>
@@ -472,21 +526,21 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <!-- FOOTER -->
 
 <footer style="text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.07);margin-top:0;position:relative;z-index:1;">
-  <p style="font-size:12px;color:rgba(255,255,255,0.25);font-family:'Nunito',sans-serif;">🐝 Powered by <span style="color:var(--honey);font-weight:800;">Zi-Bee Reads</span> · 2026</p>
+  <p style="font-size:12px;color:rgba(255,255,255,0.25);font-family:'Nunito',sans-serif;"><img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="20" height="20" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Powered by <span style="color:var(--honey);font-weight:800;">Zi-Bee Reads</span> · 2026</p>
 </footer>
 
 <script>
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────
 const T = {
   en:{
-    nav:["🏠 Home","✨ Discover","📚 My Books","🎯 Quiz","🐝 Zi-Bee Picks","🏆 Challenge"],
+    nav:["🏠 Home","✨ Discover","📚 My Books","🎯 Quiz","Zi-Bee Picks","🏆 Challenge"],
     home_tagline:"Your Reading Journey Starts Here. Like a warm hug from a bookish friend.",
     home_find:"Find a Book",
     feats:[
       {icon:"✨",name:"Discover Books",desc:"Find your next great read with our smart recommender."},
       {icon:"📚",name:"Reading Tracker",desc:"Log your books and see your progress grow."},
       {icon:"🎯",name:"Book Quiz",desc:"Which character are you? Take the quiz to find out!"},
-      {icon:"🐝",name:"Zi-Bee Picks",desc:"Amazing stories handpicked by Zi-Bee."},
+      {icon:'<img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="36" height="36" style="border-radius:6px;" alt=""/>',name:"Zi-Bee Picks",desc:"Amazing stories handpicked by Zi-Bee."},
       {icon:"🏆",name:"30-Day Challenge",desc:"Build a reading habit and earn special badges."}
     ],
     age_tips:{"5-8":{e:"🌈",t:"Every story is a new adventure! Pick a book with a fun cover today."},"9-12":{e:"🚀",t:"The best books will take you to worlds you've never imagined. Ready to explore?"},"13-17":{e:"💫",t:"Reading builds the person you're becoming. Find a story that challenges you."},"18+":{e:"📖",t:"Great books sharpen the mind and open the heart. What will you discover next?"}},
@@ -519,7 +573,7 @@ const T = {
     filter_all:"All Ages",filter_kids:"Kids 5–12",filter_teen:"Teens 13–17",filter_adult:"Adults 18+",picks_by:"by",
     picks_audiobook:"🎧 Audiobook",picks_kindle:"📱 Kindle",picks_paperback:"📖 Paperback",
     chal_title:"30-Day Reading Challenge",chal_sub:"Read for at least 15 minutes a day. Tap a circle to mark it complete!",
-    chal_hero:"May Reading Challenge 🐝",chal_hero_sub:"Tap each day you read to track your progress",
+    chal_hero:"May Reading Challenge 🌟",chal_hero_sub:"Tap each day you read to track your progress",
     chal_rewards:"🎁 Your Rewards",
     rew:["Bookworm in Training","Avid Reader","Literary Master"],
     rew_sub:(n)=>`Read for ${n} days`,
@@ -528,7 +582,7 @@ const T = {
     ob_name:"Your Name",ob_age:"Age Group",ob_email:"Email Address",ob_remember:"Remember me on this device",ob_remember_sub:"You won't need to sign in again",ob_btn:"Let's Read! 📚",ob_privacy:"Your info stays on this device only. We never share it."
   },
   fr:{
-    nav:["🏠 Accueil","✨ Découvrir","📚 Mes Livres","🎯 Quiz","🐝 Zi-Bee Picks","🏆 Défi"],
+    nav:["🏠 Accueil","✨ Découvrir","📚 Mes Livres","🎯 Quiz","Zi-Bee Picks","🏆 Défi"],
     home_tagline:"Votre voyage de lecture commence ici. Comme un câlin chaleureux d'un ami amoureux des livres.",
     feats:[
       {icon:"✨",name:"Découvrir des livres",desc:"Trouvez votre prochaine lecture grâce à notre recommandateur intelligent."},
@@ -567,7 +621,7 @@ const T = {
     filter_all:"Tous âges",filter_kids:"Enfants 5–12",filter_teen:"Adolescents 13–17",filter_adult:"Adultes 18+",picks_by:"par",
     picks_audiobook:"🎧 Livre Audio",picks_kindle:"📱 Kindle",picks_paperback:"📖 Broché",
     chal_title:"Défi de lecture 30 jours",chal_sub:"Lisez au moins 15 minutes par jour. Tapez un cercle pour le marquer !",
-    chal_hero:"Défi Lecture de Mai 🐝",chal_hero_sub:"Tapez chaque jour que vous lisez",
+    chal_hero:"Défi Lecture de Mai 🌟",chal_hero_sub:"Tapez chaque jour que vous lisez",
     chal_rewards:"🎁 Vos récompenses",
     rew:["Apprenti Lecteur","Lecteur Assidu","Maître Littéraire"],
     rew_sub:(n)=>`Lire pendant ${n} jours`,
@@ -576,7 +630,7 @@ const T = {
     ob_name:"Votre nom",ob_age:"Tranche d'âge",ob_email:"Adresse e-mail",ob_remember:"Se souvenir de moi",ob_remember_sub:"Vous n'aurez plus besoin de vous reconnecter",ob_btn:"C'est parti ! 📚",ob_privacy:"Vos informations restent sur cet appareil uniquement."
   },
   es:{
-    nav:["🏠 Inicio","✨ Descubrir","📚 Mis Libros","🎯 Quiz","🐝 Zi-Bee Picks","🏆 Desafío"],
+    nav:["🏠 Inicio","✨ Descubrir","📚 Mis Libros","🎯 Quiz","Zi-Bee Picks","🏆 Desafío"],
     home_tagline:"Tu viaje de lectura comienza aquí. Como un abrazo cálido de un amigo apasionado por los libros.",
     feats:[
       {icon:"✨",name:"Descubrir libros",desc:"Encuentra tu próxima gran lectura con nuestro recomendador inteligente."},
@@ -615,7 +669,7 @@ const T = {
     filter_all:"Todas las edades",filter_kids:"Niños 5–12",filter_teen:"Adolescentes 13–17",filter_adult:"Adultos 18+",picks_by:"de",
     picks_audiobook:"🎧 Audiolibro",picks_kindle:"📱 Kindle",picks_paperback:"📖 Papel",
     chal_title:"Desafío de lectura 30 días",chal_sub:"Lee al menos 15 minutos al día. ¡Toca un círculo para marcarlo!",
-    chal_hero:"Desafío Lector de Mayo 🐝",chal_hero_sub:"Toca cada día que leas",
+    chal_hero:"Desafío Lector de Mayo 🌟",chal_hero_sub:"Toca cada día que leas",
     chal_rewards:"🎁 Tus recompensas",
     rew:["Lector en Formación","Lector Ávido","Maestro Literario"],
     rew_sub:(n)=>`Lee durante ${n} días`,
@@ -624,7 +678,7 @@ const T = {
     ob_name:"Tu nombre",ob_age:"Grupo de edad",ob_email:"Correo electrónico",ob_remember:"Recuérdame en este dispositivo",ob_remember_sub:"No necesitarás iniciar sesión de nuevo",ob_btn:"¡A leer! 📚",ob_privacy:"Tu información se queda solo en este dispositivo."
   },
   pt:{
-    nav:["🏠 Início","✨ Descobrir","📚 Meus Livros","🎯 Quiz","🐝 Zi-Bee Picks","🏆 Desafio"],
+    nav:["🏠 Início","✨ Descobrir","📚 Meus Livros","🎯 Quiz","Zi-Bee Picks","🏆 Desafio"],
     home_tagline:"Sua jornada de leitura começa aqui. Como um abraço caloroso de um amigo apaixonado por livros.",
     feats:[
       {icon:"✨",name:"Descobrir livros",desc:"Encontre sua próxima leitura com nosso recomendador inteligente."},
@@ -662,7 +716,7 @@ const T = {
     picks_title:"Escolhas acessíveis",picks_sub:"Grandes histórias não precisam custar caro. Aqui estão obras-primas por menos de $5.",
     filter_all:"Todas as idades",filter_kids:"Crianças 5–12",filter_teen:"Adolescentes 13–17",filter_adult:"Adultos 18+",picks_by:"de",picks_audiobook:"🎧 Audiobook",picks_kindle:"📱 Kindle",picks_paperback:"📖 Impresso",
     chal_title:"Desafio de leitura de 30 dias",chal_sub:"Leia pelo menos 15 minutos por dia. Toque num círculo para marcá-lo!",
-    chal_hero:"Desafio de Leitura de Maio 🐝",chal_hero_sub:"Toque cada dia que ler",
+    chal_hero:"Desafio de Leitura de Maio 🌟",chal_hero_sub:"Toque cada dia que ler",
     chal_rewards:"🎁 Suas recompensas",
     rew:["Leitor em Formação","Leitor Ávido","Mestre Literário"],
     rew_sub:(n)=>`Leia por ${n} dias`,
@@ -709,7 +763,7 @@ const T = {
     picks_title:"Zi-Bee Picks",picks_sub:"Hadithi bora zilizochaguliwa na Zi-Bee.",
     filter_all:"Umri Wote",filter_kids:"Watoto 5–12",filter_teen:"Vijana 13–17",filter_adult:"Watu Wazima 18+",picks_by:"na",picks_audiobook:"🎧 Kitabu cha Sauti",picks_kindle:"📱 Kindle",picks_paperback:"📖 Karatasi",
     chal_title:"Changamoto ya Kusoma Siku 30",chal_sub:"Soma kwa dakika 15 kila siku. Gonga mduara kumarkisha!",
-    chal_hero:"Changamoto ya Kusoma ya Mei 🐝",chal_hero_sub:"Gonga kila siku unayosoma",
+    chal_hero:"Changamoto ya Kusoma ya Mei 🌟",chal_hero_sub:"Gonga kila siku unayosoma",
     chal_rewards:"🎁 Tuzo Zako",
     rew:["Msomaji Anayejifunza","Msomaji Makini","Bingwa wa Fasihi"],
     rew_sub:(n)=>`Soma kwa siku ${n}`,
@@ -718,7 +772,7 @@ const T = {
     ob_name:"Jina Lako",ob_age:"Kundi la Umri",ob_email:"Anwani ya Barua Pepe",ob_remember:"Nikumbuke kwenye kifaa hiki",ob_remember_sub:"Hutahitaji kuingia tena",ob_btn:"Tusome! 📚",ob_privacy:"Taarifa zako zinabaki kwenye kifaa hiki tu."
   },
   ar:{
-    nav:["🏠 الرئيسية","✨ اكتشف","📚 كتبي","🎯 اختبار","🐝 Zi-Bee Picks","🏆 التحدي"],
+    nav:["🏠 الرئيسية","✨ اكتشف","📚 كتبي","🎯 اختبار","Zi-Bee Picks","🏆 التحدي"],
     home_tagline:"رحلتك في القراءة تبدأ هنا. كعناق دافئ من صديق يعشق الكتب.",
     feats:[
       {icon:"✨",name:"اكتشف الكتب",desc:"اعثر على قراءتك التالية بمُوصي الكتب الذكي."},
@@ -756,7 +810,7 @@ const T = {
     picks_title:"Zi-Bee Picks",picks_sub:"قصص رائعة من اختيار Zi-Bee.",
     filter_all:"جميع الأعمار",filter_kids:"أطفال 5–12",filter_teen:"مراهقون 13–17",filter_adult:"بالغون 18+",picks_by:"بقلم",picks_audiobook:"🎧 كتاب صوتي",picks_kindle:"📱 كيندل",picks_paperback:"📖 ورقي",
     chal_title:"تحدي القراءة لمدة 30 يوماً",chal_sub:"اقرأ لمدة 15 دقيقة على الأقل يومياً. انقر على دائرة لتحديدها!",
-    chal_hero:"تحدي القراءة - مايو 🐝",chal_hero_sub:"انقر على كل يوم تقرأ فيه",
+    chal_hero:"تحدي القراءة - مايو 🌟",chal_hero_sub:"انقر على كل يوم تقرأ فيه",
     chal_rewards:"🎁 مكافآتك",
     rew:["قارئ مبتدئ","قارئ نشيط","سيد الأدب"],
     rew_sub:(n)=>`اقرأ لـ ${n} أيام`,
@@ -765,7 +819,7 @@ const T = {
     ob_name:"اسمك",ob_age:"الفئة العمرية",ob_email:"عنوان البريد الإلكتروني",ob_remember:"تذكرني على هذا الجهاز",ob_remember_sub:"لن تحتاج إلى تسجيل الدخول مرة أخرى",ob_btn:"هيا نقرأ! 📚",ob_privacy:"معلوماتك تبقى على هذا الجهاز فقط."
   },
   ja:{
-    nav:["🏠 ホーム","✨ さがす","📚 マイ本","🎯 クイズ","🐝 Zi-Bee Picks","🏆 チャレンジ"],
+    nav:["🏠 ホーム","✨ さがす","📚 マイ本","🎯 クイズ","Zi-Bee Picks","🏆 チャレンジ"],
     home_tagline:"読書の旅はここから始まります。本好きの友人からの温かいハグのように。",
     feats:[
       {icon:"✨",name:"本を発見する",desc:"スマートなレコメンダーで次の一冊を見つけよう。"},
@@ -803,7 +857,7 @@ const T = {
     picks_title:"Zi-Bee Picks",picks_sub:"Zi-Beeが厳選した素晴らしい物語。",
     filter_all:"全年齢",filter_kids:"子ども 5–12",filter_teen:"ティーン 13–17",filter_adult:"大人 18+",picks_by:"著",picks_audiobook:"🎧 オーディオブック",picks_kindle:"📱 Kindle",picks_paperback:"📖 ペーパーバック",
     chal_title:"30日読書チャレンジ",chal_sub:"毎日15分以上読もう。円をタップして達成をマーク！",
-    chal_hero:"5月の読書チャレンジ 🐝",chal_hero_sub:"読んだ日をタップしてください",
+    chal_hero:"5月の読書チャレンジ 🌟",chal_hero_sub:"読んだ日をタップしてください",
     chal_rewards:"🎁 あなたのご褒美",
     rew:["読書見習い","熱心な読者","文学マスター"],
     rew_sub:(n)=>`${n}日間読書する`,
@@ -1103,10 +1157,16 @@ function renderQuestion(){
   document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ(this,${i})">${o}</button>`).join('');
 }
 function answerQ(el,i){
+  // Highlight selected
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
   qAnswers[qIdx]=i;
   const L=T[lang]||T.en;
-  if(qIdx<L.Qs.length-1){qIdx++;renderQuestion();}
-  else showResult();
+  // Small delay so user sees selection before moving on
+  setTimeout(()=>{
+    if(qIdx<L.Qs.length-1){qIdx++;renderQuestion();}
+    else showResult();
+  },350);
 }
 function showResult(){
   const L=T[lang]||T.en;
@@ -1132,7 +1192,7 @@ function renderPicks(){
     {id:'adult',label:L.filter_adult}
   ];
   document.getElementById('picksFilter').innerHTML=filters.map(f=>`<button class="filter-chip ${pickFilter===f.id?'on':''}" onclick="setPickFilter('${f.id}',this)">${f.label}</button>`).join('');
-  document.getElementById('picks-title').innerHTML=`🐝 Zi-Bee <span>Picks</span>`;
+  document.getElementById('picks-title').innerHTML=`<img src="https://i.ibb.co/g1jqTRC/F014-A545-DA73-4-AC6-BAD6-FE44-AB603-A53.png" width="18" height="18" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee <span>Picks</span>`;
   document.getElementById('picks-sub').textContent=L.picks_sub;
   const filtered=pickFilter==='all'?PICKS:PICKS.filter(p=>p.age===pickFilter);
   document.getElementById('picksGrid').innerHTML=filtered.map(p=>`
