@@ -940,6 +940,18 @@ function submitOnboarding(){
   const data=JSON.stringify(profile);
   if(remember){localStorage.setItem('zibee_profile',data);sessionStorage.removeItem('zibee_profile');}
   else{sessionStorage.setItem('zibee_profile',data);localStorage.removeItem('zibee_profile');}
+  // Save to Supabase Signups table
+  const ageMap={'5-8':7,'9-12':10,'13-17':15,'18+':20};
+  fetch('https://qixuqrjmxwcsyvriyjsz.supabase.co/rest/v1/Signups',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
+      'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify({name,email,age:ageMap[selectedAge]||18})
+  }).catch(()=>{});
   document.getElementById('onboarding').classList.add('hidden');
   document.getElementById('app').style.display='block';
   initApp();
@@ -1070,7 +1082,7 @@ async function getRecommendation(){
   const L=T[lang]||T.en;
   out.innerHTML=`<div class="loading"><span></span><span></span><span></span></div><p style="color:var(--muted);margin-top:8px">${L.rec_searching}</p>`;
   try{
-    const r=await fetch("https://qixuqrjmxwcsyvriyjsz.supabase.co/functions/v1/recommend",{
+    const r=await fetch("https://qixuqrjmxwcsyvriyjsz.supabase.co/functions/v1/bri-task",{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
