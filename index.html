@@ -330,7 +330,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
     <button class="tab-btn" onclick="show('rec')" id="tab-rec">✨ Discover</button>
     <button class="tab-btn" onclick="show('tracker')" id="tab-tracker">📚 My Books</button>
     <button class="tab-btn" onclick="show('quiz')" id="tab-quiz">🎯 Quiz</button>
-    <button class="tab-btn" onclick="show('picks')" id="tab-picks"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="16" height="16" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee Picks</button>
+    <button class="tab-btn" onclick="show('picks')" id="tab-picks"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="16" height="16" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee's Picks</button>
     <button class="tab-btn" onclick="show('challenge')" id="tab-challenge">🏆 Challenge</button>
   </div>
 </nav>
@@ -498,7 +498,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <!-- PICKS -->
 
 <div class="screen" id="screen-picks">
-  <h1 class="page-title" id="picks-title"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="18" height="18" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee <span>Picks</span></h1>
+  <h1 class="page-title" id="picks-title"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="18" height="18" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee's <span>Picks</span></h1>
   <p class="page-sub" id="picks-sub">Amazing stories handpicked by Zi-Bee.</p>
   <div class="filter-row" id="picksFilter"></div>
   <div class="picks-grid" id="picksGrid"></div>
@@ -533,14 +533,14 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────
 const T = {
   en:{
-    nav:["🏠 Home","✨ Discover","📚 My Books","🎯 Quiz","Zi-Bee Picks","🏆 Challenge"],
+    nav:["🏠 Home","✨ Discover","📚 My Books","🎯 Quiz","Zi-Bee's Picks","🏆 Challenge"],
     home_tagline:"Your Reading Journey Starts Here. Like a warm hug from a bookish friend.",
     home_find:"Find a Book",
     feats:[
       {icon:"✨",name:"Discover Books",desc:"Find your next great read with our smart recommender."},
       {icon:"📚",name:"Reading Tracker",desc:"Log your books and see your progress grow."},
       {icon:"🎯",name:"Book Quiz",desc:"Which character are you? Take the quiz to find out!"},
-      {icon:'<img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="36" height="36" style="border-radius:6px;" alt=""/>',name:"Zi-Bee Picks",desc:"Amazing stories handpicked by Zi-Bee."},
+      {icon:'<img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="36" height="36" style="border-radius:6px;" alt=""/>',name:"Zi-Bee's Picks",desc:"Amazing stories handpicked by Zi-Bee."},
       {icon:"🏆",name:"30-Day Challenge",desc:"Build a reading habit and earn special badges."}
     ],
     age_tips:{"5-8":{e:"🌈",t:"Every story is a new adventure! Pick a book with a fun cover today."},"9-12":{e:"🚀",t:"The best books will take you to worlds you've never imagined. Ready to explore?"},"13-17":{e:"💫",t:"Reading builds the person you're becoming. Find a story that challenges you."},"18+":{e:"📖",t:"Great books sharpen the mind and open the heart. What will you discover next?"}},
@@ -569,7 +569,7 @@ const T = {
       {e:"💫",n:"The Kind Soul",d:"You lead with your heart. Stories about friendship, growth and love speak to you — think Matilda or Wonder."},
       {e:"🌿",n:"The Dreamer",d:"Your imagination has no limits. You live for stories that take you to other worlds."}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"Amazing stories handpicked by Zi-Bee.",
+    picks_title:"Zi-Bee's Picks",picks_sub:"Amazing stories handpicked by Zi-Bee.",
     filter_all:"All Ages",filter_kids:"Kids 5–12",filter_teen:"Teens 13–17",filter_adult:"Adults 18+",picks_by:"by",
     picks_audiobook:"🎧 Audiobook",picks_kindle:"📱 Kindle",picks_paperback:"📖 Paperback",
     chal_title:"30-Day Reading Challenge",chal_sub:"Read for at least 15 minutes a day. Tap a circle to mark it complete!",
@@ -582,7 +582,7 @@ const T = {
     ob_name:"Your Name",ob_age:"Age Group",ob_email:"Email Address",ob_remember:"Remember me on this device",ob_remember_sub:"You won't need to sign in again",ob_btn:"Let's Read! 📚",ob_privacy:"Your info stays on this device only. We never share it."
   },
   fr:{
-    nav:["🏠 Accueil","✨ Découvrir","📚 Mes Livres","🎯 Quiz","Zi-Bee Picks","🏆 Défi"],
+    nav:["🏠 Accueil","✨ Découvrir","📚 Mes Livres","🎯 Quiz","Zi-Bee's Picks","🏆 Défi"],
     home_tagline:"Votre voyage de lecture commence ici. Comme un câlin chaleureux d'un ami amoureux des livres.",
     feats:[
       {icon:"✨",name:"Découvrir des livres",desc:"Trouvez votre prochaine lecture grâce à notre recommandateur intelligent."},
@@ -617,7 +617,7 @@ const T = {
       {e:"💫",n:"L'Âme Généreuse",d:"Vous guidez avec votre cœur. Les histoires d'amitié vous parlent."},
       {e:"🌿",n:"Le Rêveur",d:"Votre imagination n'a pas de limites. Vous vivez pour des histoires dans d'autres mondes."}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"Des histoires incroyables sélectionnées par Zi-Bee.",
+    picks_title:"Zi-Bee's Picks",picks_sub:"Des histoires incroyables sélectionnées par Zi-Bee.",
     filter_all:"Tous âges",filter_kids:"Enfants 5–12",filter_teen:"Adolescents 13–17",filter_adult:"Adultes 18+",picks_by:"par",
     picks_audiobook:"🎧 Livre Audio",picks_kindle:"📱 Kindle",picks_paperback:"📖 Broché",
     chal_title:"Défi de lecture 30 jours",chal_sub:"Lisez au moins 15 minutes par jour. Tapez un cercle pour le marquer !",
@@ -630,7 +630,7 @@ const T = {
     ob_name:"Votre nom",ob_age:"Tranche d'âge",ob_email:"Adresse e-mail",ob_remember:"Se souvenir de moi",ob_remember_sub:"Vous n'aurez plus besoin de vous reconnecter",ob_btn:"C'est parti ! 📚",ob_privacy:"Vos informations restent sur cet appareil uniquement."
   },
   es:{
-    nav:["🏠 Inicio","✨ Descubrir","📚 Mis Libros","🎯 Quiz","Zi-Bee Picks","🏆 Desafío"],
+    nav:["🏠 Inicio","✨ Descubrir","📚 Mis Libros","🎯 Quiz","Zi-Bee's Picks","🏆 Desafío"],
     home_tagline:"Tu viaje de lectura comienza aquí. Como un abrazo cálido de un amigo apasionado por los libros.",
     feats:[
       {icon:"✨",name:"Descubrir libros",desc:"Encuentra tu próxima gran lectura con nuestro recomendador inteligente."},
@@ -665,7 +665,7 @@ const T = {
       {e:"💫",n:"El Alma Bondadosa",d:"Líderas con el corazón. Las historias de amistad y amor te hablan."},
       {e:"🌿",n:"El Soñador",d:"Tu imaginación no tiene límites. Vives para historias en otros mundos."}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"Historias increíbles seleccionadas por Zi-Bee.",
+    picks_title:"Zi-Bee's Picks",picks_sub:"Historias increíbles seleccionadas por Zi-Bee.",
     filter_all:"Todas las edades",filter_kids:"Niños 5–12",filter_teen:"Adolescentes 13–17",filter_adult:"Adultos 18+",picks_by:"de",
     picks_audiobook:"🎧 Audiolibro",picks_kindle:"📱 Kindle",picks_paperback:"📖 Papel",
     chal_title:"Desafío de lectura 30 días",chal_sub:"Lee al menos 15 minutos al día. ¡Toca un círculo para marcarlo!",
@@ -678,7 +678,7 @@ const T = {
     ob_name:"Tu nombre",ob_age:"Grupo de edad",ob_email:"Correo electrónico",ob_remember:"Recuérdame en este dispositivo",ob_remember_sub:"No necesitarás iniciar sesión de nuevo",ob_btn:"¡A leer! 📚",ob_privacy:"Tu información se queda solo en este dispositivo."
   },
   pt:{
-    nav:["🏠 Início","✨ Descobrir","📚 Meus Livros","🎯 Quiz","Zi-Bee Picks","🏆 Desafio"],
+    nav:["🏠 Início","✨ Descobrir","📚 Meus Livros","🎯 Quiz","Zi-Bee's Picks","🏆 Desafio"],
     home_tagline:"Sua jornada de leitura começa aqui. Como um abraço caloroso de um amigo apaixonado por livros.",
     feats:[
       {icon:"✨",name:"Descobrir livros",desc:"Encontre sua próxima leitura com nosso recomendador inteligente."},
@@ -760,7 +760,7 @@ const T = {
       {e:"💫",n:"Roho Nzuri",d:"Unaongoza kwa moyo wako. Hadithi za urafiki na upendo zinakusemea."},
       {e:"🌿",n:"Mwenye Ndoto",d:"Mawazo yako hayana mipaka. Unaishi kwa hadithi zinazokupeleka duniani nyingine."}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"Hadithi bora zilizochaguliwa na Zi-Bee.",
+    picks_title:"Zi-Bee's Picks",picks_sub:"Hadithi bora zilizochaguliwa na Zi-Bee.",
     filter_all:"Umri Wote",filter_kids:"Watoto 5–12",filter_teen:"Vijana 13–17",filter_adult:"Watu Wazima 18+",picks_by:"na",picks_audiobook:"🎧 Kitabu cha Sauti",picks_kindle:"📱 Kindle",picks_paperback:"📖 Karatasi",
     chal_title:"Changamoto ya Kusoma Siku 30",chal_sub:"Soma kwa dakika 15 kila siku. Gonga mduara kumarkisha!",
     chal_hero:"Changamoto ya Kusoma ya Mei 🌟",chal_hero_sub:"Gonga kila siku unayosoma",
@@ -772,7 +772,7 @@ const T = {
     ob_name:"Jina Lako",ob_age:"Kundi la Umri",ob_email:"Anwani ya Barua Pepe",ob_remember:"Nikumbuke kwenye kifaa hiki",ob_remember_sub:"Hutahitaji kuingia tena",ob_btn:"Tusome! 📚",ob_privacy:"Taarifa zako zinabaki kwenye kifaa hiki tu."
   },
   ar:{
-    nav:["🏠 الرئيسية","✨ اكتشف","📚 كتبي","🎯 اختبار","Zi-Bee Picks","🏆 التحدي"],
+    nav:["🏠 الرئيسية","✨ اكتشف","📚 كتبي","🎯 اختبار","Zi-Bee's Picks","🏆 التحدي"],
     home_tagline:"رحلتك في القراءة تبدأ هنا. كعناق دافئ من صديق يعشق الكتب.",
     feats:[
       {icon:"✨",name:"اكتشف الكتب",desc:"اعثر على قراءتك التالية بمُوصي الكتب الذكي."},
@@ -807,7 +807,7 @@ const T = {
       {e:"💫",n:"الروح الطيبة",d:"تقود بقلبك. قصص الصداقة والنمو والحب تتحدث إليك."},
       {e:"🌿",n:"الحالم",d:"خيالك لا حدود له. تعيش من أجل القصص التي تأخذك إلى عوالم أخرى."}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"قصص رائعة من اختيار Zi-Bee.",
+    picks_title:"Zi-Bee's Picks",picks_sub:"قصص رائعة من اختيار Zi-Bee.",
     filter_all:"جميع الأعمار",filter_kids:"أطفال 5–12",filter_teen:"مراهقون 13–17",filter_adult:"بالغون 18+",picks_by:"بقلم",picks_audiobook:"🎧 كتاب صوتي",picks_kindle:"📱 كيندل",picks_paperback:"📖 ورقي",
     chal_title:"تحدي القراءة لمدة 30 يوماً",chal_sub:"اقرأ لمدة 15 دقيقة على الأقل يومياً. انقر على دائرة لتحديدها!",
     chal_hero:"تحدي القراءة - مايو 🌟",chal_hero_sub:"انقر على كل يوم تقرأ فيه",
@@ -819,7 +819,7 @@ const T = {
     ob_name:"اسمك",ob_age:"الفئة العمرية",ob_email:"عنوان البريد الإلكتروني",ob_remember:"تذكرني على هذا الجهاز",ob_remember_sub:"لن تحتاج إلى تسجيل الدخول مرة أخرى",ob_btn:"هيا نقرأ! 📚",ob_privacy:"معلوماتك تبقى على هذا الجهاز فقط."
   },
   ja:{
-    nav:["🏠 ホーム","✨ さがす","📚 マイ本","🎯 クイズ","Zi-Bee Picks","🏆 チャレンジ"],
+    nav:["🏠 ホーム","✨ さがす","📚 マイ本","🎯 クイズ","Zi-Bee's Picks","🏆 チャレンジ"],
     home_tagline:"読書の旅はここから始まります。本好きの友人からの温かいハグのように。",
     feats:[
       {icon:"✨",name:"本を発見する",desc:"スマートなレコメンダーで次の一冊を見つけよう。"},
@@ -854,7 +854,7 @@ const T = {
       {e:"💫",n:"優しい魂",d:"心で導くあなた。友情、成長、愛の物語があなたに語りかける。"},
       {e:"🌿",n:"夢想家",d:"あなたの想像力には限界がない。別の世界へ連れて行ってくれる物語のために生きている。"}
     ],
-    picks_title:"Zi-Bee Picks",picks_sub:"Zi-Beeが厳選した素晴らしい物語。",
+    picks_title:"Zi-Bee's Picks",picks_sub:"Zi-Beeが厳選した素晴らしい物語。",
     filter_all:"全年齢",filter_kids:"子ども 5–12",filter_teen:"ティーン 13–17",filter_adult:"大人 18+",picks_by:"著",picks_audiobook:"🎧 オーディオブック",picks_kindle:"📱 Kindle",picks_paperback:"📖 ペーパーバック",
     chal_title:"30日読書チャレンジ",chal_sub:"毎日15分以上読もう。円をタップして達成をマーク！",
     chal_hero:"5月の読書チャレンジ 🌟",chal_hero_sub:"読んだ日をタップしてください",
@@ -1083,8 +1083,24 @@ async function getRecommendation(){
         language:recLang
       })
     });
-    const d=await r.json();
+    const raw=await r.text();
+    if(!r.ok){
+      out.innerHTML=`<p style="color:#f87171">Error ${r.status}: ${raw}</p>`;
+      btn.disabled=false;
+      return;
+    }
+    let d;
+    try{d=JSON.parse(raw);}catch(e){
+      out.innerHTML=`<p style="color:#f87171">Invalid response: ${raw.slice(0,200)}</p>`;
+      btn.disabled=false;
+      return;
+    }
     const text=d.text||'';
+    if(!text){
+      out.innerHTML=`<p style="color:#f87171">Empty response from server. Please try again.</p>`;
+      btn.disabled=false;
+      return;
+    }
     const L2=T[lang]||T.en;
     let html=`<h3>${L2.rec_your}</h3>`;
     text.split('\n').filter(l=>l.trim()).forEach(l=>{
@@ -1092,7 +1108,9 @@ async function getRecommendation(){
       else{html+=`<p style="font-style:italic;color:var(--honey);margin-bottom:14px">${l.trim()}</p>`;}
     });
     out.innerHTML=html;
-  }catch(e){out.innerHTML=`<p style="color:#f87171">Could not connect. Please check your connection and try again.</p>`;}
+  }catch(e){
+    out.innerHTML=`<p style="color:#f87171">Error: ${e.message}. Please try again.</p>`;
+  }
   btn.disabled=false;
 }
 
