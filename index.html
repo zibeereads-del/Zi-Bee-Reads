@@ -1081,9 +1081,15 @@ async function getRecommendation(){
   box.style.display='block';
   const L=T[lang]||T.en;
   out.innerHTML=`<div class="loading"><span></span><span></span><span></span></div><p style="color:var(--muted);margin-top:8px">${L.rec_searching}</p>`;
+
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),30000);
+
   try{
     const r=await fetch("https://qixuqrjmxwcsyvriyjsz.supabase.co/functions/v1/bri-task",{
       method:"POST",
+      mode:"cors",
+      signal:controller.signal,
       headers:{
         "Content-Type":"application/json",
         "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g",
@@ -1097,6 +1103,7 @@ async function getRecommendation(){
         language:recLang
       })
     });
+    clearTimeout(timeout);
     const raw=await r.text();
     if(!r.ok){
       out.innerHTML=`<p style="color:#f87171">Error ${r.status}: ${raw}</p>`;
@@ -1111,7 +1118,7 @@ async function getRecommendation(){
     }
     const text=d.text||'';
     if(!text){
-      out.innerHTML=`<p style="color:#f87171">Empty response from server. Please try again.</p>`;
+      out.innerHTML=`<p style="color:#f87171">Empty response. Please try again.</p>`;
       btn.disabled=false;
       return;
     }
@@ -1123,7 +1130,12 @@ async function getRecommendation(){
     });
     out.innerHTML=html;
   }catch(e){
-    out.innerHTML=`<p style="color:#f87171">Error: ${e.message}. Please try again.</p>`;
+    clearTimeout(timeout);
+    if(e.name==='AbortError'){
+      out.innerHTML=`<p style="color:#f87171">Request timed out. Please try again.</p>`;
+    } else {
+      out.innerHTML=`<p style="color:#f87171">Connection error: ${e.name} — ${e.message}</p>`;
+    }
   }
   btn.disabled=false;
 }
