@@ -1072,7 +1072,7 @@ function selRec(type,el,val){
   recSel[type]=val;
   document.getElementById('recBtn').disabled=!(recSel.age&&recSel.genre&&recSel.mood);
 }
-async function getRecommendation(){
+function getRecommendation(){
   const btn=document.getElementById('recBtn');
   const box=document.getElementById('recResult');
   const out=document.getElementById('recOutput');
@@ -1082,60 +1082,46 @@ async function getRecommendation(){
   const L=T[lang]||T.en;
   out.innerHTML=`<div class="loading"><span></span><span></span><span></span></div><p style="color:var(--muted);margin-top:8px">${L.rec_searching}</p>`;
 
-  const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),30000);
+  const xhr=new XMLHttpRequest();
+  xhr.open("POST","https://qixuqrjmxwcsyvriyjsz.supabase.co/functions/v1/bri-task",true);
+  xhr.setRequestHeader("Content-Type","application/json");
+  xhr.setRequestHeader("Authorization","Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g");
+  xhr.timeout=30000;
 
-  try{
-    const r=await fetch("https://qixuqrjmxwcsyvriyjsz.supabase.co/functions/v1/bri-task",{
-      method:"POST",
-      mode:"cors",
-      signal:controller.signal,
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g"
-      },
-      body:JSON.stringify({
-        age:recSel.age,
-        genre:recSel.genre,
-        mood:recSel.mood,
-        language:recLang
-      })
-    });
-    clearTimeout(timeout);
-    const raw=await r.text();
-    if(!r.ok){
-      out.innerHTML=`<p style="color:#f87171">Error ${r.status}: ${raw}</p>`;
-      btn.disabled=false;
-      return;
+  xhr.onload=function(){
+    try{
+      const d=JSON.parse(xhr.responseText);
+      const text=d.text||'';
+      if(!text){out.innerHTML=`<p style="color:#f87171">Empty response. Please try again.</p>`;btn.disabled=false;return;}
+      const L2=T[lang]||T.en;
+      let html=`<h3>${L2.rec_your}</h3>`;
+      text.split('\n').filter(l=>l.trim()).forEach(l=>{
+        if(/^\d[\.\)]/.test(l.trim())){html+=`<p>📖 ${l.trim()}</p>`;}
+        else{html+=`<p style="font-style:italic;color:var(--honey);margin-bottom:14px">${l.trim()}</p>`;}
+      });
+      out.innerHTML=html;
+    }catch(e){
+      out.innerHTML=`<p style="color:#f87171">Parse error: ${xhr.responseText.slice(0,100)}</p>`;
     }
-    let d;
-    try{d=JSON.parse(raw);}catch(e){
-      out.innerHTML=`<p style="color:#f87171">Invalid response: ${raw.slice(0,200)}</p>`;
-      btn.disabled=false;
-      return;
-    }
-    const text=d.text||'';
-    if(!text){
-      out.innerHTML=`<p style="color:#f87171">Empty response. Please try again.</p>`;
-      btn.disabled=false;
-      return;
-    }
-    const L2=T[lang]||T.en;
-    let html=`<h3>${L2.rec_your}</h3>`;
-    text.split('\n').filter(l=>l.trim()).forEach(l=>{
-      if(/^\d[\.\)]/.test(l.trim())){html+=`<p>📖 ${l.trim()}</p>`;}
-      else{html+=`<p style="font-style:italic;color:var(--honey);margin-bottom:14px">${l.trim()}</p>`;}
-    });
-    out.innerHTML=html;
-  }catch(e){
-    clearTimeout(timeout);
-    if(e.name==='AbortError'){
-      out.innerHTML=`<p style="color:#f87171">Request timed out. Please try again.</p>`;
-    } else {
-      out.innerHTML=`<p style="color:#f87171">Connection error: ${e.name} — ${e.message}</p>`;
-    }
-  }
-  btn.disabled=false;
+    btn.disabled=false;
+  };
+
+  xhr.onerror=function(){
+    out.innerHTML=`<p style="color:#f87171">Network error. Status: ${xhr.status}. Please try again.</p>`;
+    btn.disabled=false;
+  };
+
+  xhr.ontimeout=function(){
+    out.innerHTML=`<p style="color:#f87171">Request timed out. Please try again.</p>`;
+    btn.disabled=false;
+  };
+
+  xhr.send(JSON.stringify({
+    age:recSel.age,
+    genre:recSel.genre,
+    mood:recSel.mood,
+    language:recLang
+  }));
 }
 
 // ── TRACKER ───────────────────────────────────────────────────────────────
