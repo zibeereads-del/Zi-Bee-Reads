@@ -214,6 +214,41 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 .page-title span,.home-title span{color:#f59e0b;}
 .result-name{color:#f59e0b;}
 .nav-logo{color:#ffffbb !important;}
+
+/* ── HAMBURGER MENU ── */
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+/* ── SIDE DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.drawer-overlay.open{opacity:1;pointer-events:all;}
+.drawer{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#1c0a00;z-index:201;transition:left .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;border-right:1px solid rgba(245,158,11,0.2);}
+.drawer.open{left:0;}
+.drawer-header{padding:24px 20px 20px;border-bottom:1px solid rgba(245,158,11,0.15);display:flex;align-items:center;gap:10px;}
+.drawer-logo{font-family:‘Playfair Display’,serif;font-size:18px;font-weight:900;color:#F5A800;}
+.drawer-nav{padding:12px 0;}
+.drawer-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px 20px;background:none;border:none;color:#fff;font-family:‘Nunito’,sans-serif;font-size:15px;font-weight:700;cursor:pointer;text-align:left;transition:all .2s;}
+.drawer-btn:hover,.drawer-btn.active{background:rgba(245,158,11,0.12);color:#F5A800;}
+.drawer-btn span.icon{font-size:18px;width:24px;text-align:center;}
+.drawer-divider{height:1px;background:rgba(245,158,11,0.1);margin:8px 20px;}
+
+/* ── ABOUT PAGE ── */
+.about-hero{text-align:center;padding:32px 0 24px;}
+.about-title{font-family:‘Playfair Display’,serif;font-size:28px;font-weight:900;color:#F5A800;margin-bottom:8px;}
+.about-sub{color:rgba(255,255,255,0.6);font-size:14px;line-height:1.7;max-width:500px;margin:0 auto 28px;}
+.about-section{background:rgba(255,255,255,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:16px;padding:22px;margin-bottom:16px;}
+.about-section h3{font-family:‘Playfair Display’,serif;font-size:18px;color:#F5A800;margin-bottom:10px;}
+.about-section p{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.75;}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.social-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1.5px solid rgba(245,158,11,0.2);background:rgba(245,158,11,0.06);text-decoration:none;color:#fff;font-size:13px;font-weight:700;transition:all .2s;}
+.social-btn:hover{border-color:#F5A800;color:#F5A800;background:rgba(245,158,11,0.12);}
+.social-btn .sicon{font-size:20px;}
+.contact-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;border:1.5px solid rgba(245,158,11,0.2);background:rgba(245,158,11,0.06);margin-top:10px;}
+.contact-row a{color:#F5A800;font-size:14px;font-weight:700;text-decoration:none;}
+.contact-row a:hover{text-decoration:underline;}
 </style>
 
 </head>
@@ -312,9 +347,40 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 <!-- ── APP ── -->
 
 <div id="app" style="display:none;">
+
+<!-- DRAWER OVERLAY -->
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- SIDE DRAWER -->
+
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="32" height="32" style="border-radius:6px;" alt=""/>
+    <div class="drawer-logo">Zi-Bee Reads</div>
+  </div>
+  <div class="drawer-nav">
+    <button class="drawer-btn active" onclick="showFromDrawer('home')" id="drawer-home"><span class="icon">🏠</span> Home</button>
+    <button class="drawer-btn" onclick="showFromDrawer('rec')" id="drawer-rec"><span class="icon">✨</span> Discover</button>
+    <button class="drawer-btn" onclick="showFromDrawer('tracker')" id="drawer-tracker"><span class="icon">📚</span> My Books</button>
+    <button class="drawer-btn" onclick="showFromDrawer('quiz')" id="drawer-quiz"><span class="icon">🎯</span> Quiz</button>
+    <button class="drawer-btn" onclick="showFromDrawer('picks')" id="drawer-picks"><span class="icon"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="18" height="18" style="border-radius:3px;vertical-align:middle;"/></span> Zi-Bee Picks</button>
+    <button class="drawer-btn" onclick="showFromDrawer('challenge')" id="drawer-challenge"><span class="icon">🏆</span> Challenge</button>
+    <div class="drawer-divider"></div>
+    <button class="drawer-btn" onclick="showFromDrawer('about')" id="drawer-about"><span class="icon">💛</span> About Us</button>
+    <button class="drawer-btn" onclick="showFromDrawer('privacy')" id="drawer-privacy"><span class="icon">🔒</span> Privacy Policy</button>
+    <button class="drawer-btn" onclick="showFromDrawer('terms')" id="drawer-terms"><span class="icon">📜</span> Terms &amp; Conditions</button>
+  </div>
+</div>
+
 <nav>
   <div class="nav-top">
-    <div class="nav-logo"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="26" height="26" style="vertical-align:middle;margin-right:6px;border-radius:4px;" alt="Zi-Bee"/> Zi-Bee Reads</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-logo"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="26" height="26" style="vertical-align:middle;margin-right:6px;border-radius:4px;" alt="Zi-Bee"/> Zi-Bee Reads</div>
+    </div>
     <select class="lang-sel" onchange="setLang(this.value)" id="langSel">
       <option value="en">🇬🇧 English</option>
       <option value="fr">🇫🇷 Français</option>
@@ -324,14 +390,6 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
       <option value="ar">🇸🇦 العربية</option>
       <option value="ja">🇯🇵 日本語</option>
     </select>
-  </div>
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="show('home')" id="tab-home">🏠 Home</button>
-    <button class="tab-btn" onclick="show('rec')" id="tab-rec">✨ Discover</button>
-    <button class="tab-btn" onclick="show('tracker')" id="tab-tracker">📚 My Books</button>
-    <button class="tab-btn" onclick="show('quiz')" id="tab-quiz">🎯 Quiz</button>
-    <button class="tab-btn" onclick="show('picks')" id="tab-picks"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="16" height="16" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Zi-Bee Picks</button>
-    <button class="tab-btn" onclick="show('challenge')" id="tab-challenge">🏆 Challenge</button>
   </div>
 </nav>
 
@@ -521,12 +579,199 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
   <div class="rew-card" id="rew-card-15"><div class="rew-icon">🌟</div><div style="flex:1"><div class="rew-title" id="rew-15-title">15-Day Streak</div><div class="rew-sub" id="rew-15-sub">Read for 15 days</div></div><div id="rew15"><span class="badge badge-muted" id="rew15-badge">🔒 Locked</span></div></div>
   <div class="rew-card" id="rew-card-30"><div class="rew-icon">🏆</div><div style="flex:1"><div class="rew-title" id="rew-30-title">30-Day Champion</div><div class="rew-sub" id="rew-30-sub">Read for 30 days</div></div><div id="rew30"><span class="badge badge-muted" id="rew30-badge">🔒 Locked</span></div></div>
 </div>
+
+<!-- ABOUT US -->
+
+<div class="screen" id="screen-about">
+  <div class="about-hero">
+    <div style="font-size:56px;margin-bottom:12px;"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="100" height="100" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/></div>
+    <h1 class="about-title">About Zi-Bee Reads</h1>
+    <p class="about-sub">Making reading affordable and accessible for kids and young adults across the globe one book at a time.</p>
+  </div>
+
+  <div class="about-section">
+    <h3>Our Story</h3>
+    <p>Zi-Bee Reads was born from a simple belief that every child deserves a great book, and no reader should ever have to say "I don't know what to read next." We built a free app that finds your perfect book in seconds, tracks your reading journey and makes the love of books feel personal, fun and truly global.</p>
+  </div>
+
+  <div class="about-section">
+    <h3>Our Mission</h3>
+    <p>We believe a child who reads becomes an adult who thinks. Our mission is to remove every barrier between young readers and the books that could change their lives no matter where they are in the world or what language they speak.</p>
+  </div>
+
+  <div class="about-section">
+    <h3>Follow Us</h3>
+    <p style="margin-bottom:4px;">Stay connected and join our growing reading community.</p>
+    <div class="social-grid">
+      <a class="social-btn" href="https://www.tiktok.com/@zi_bee_reads" target="_blank">
+        <img src="https://cdn.simpleicons.org/tiktok/ffffff" width="20" height="20" style="vertical-align:middle;"/> TikTok
+      </a>
+      <a class="social-btn" href="Instagram.com/zi_bee_reads" target="_blank">
+        <img src="https://cdn.simpleicons.org/instagram/ffffff" width="20" height="20" style="vertical-align:middle;"/> Instagram
+      </a>
+      <a class="social-btn" href="https://www.facebook.com/zibeereads/" target="_blank">
+        <img src="https://cdn.simpleicons.org/facebook/ffffff" width="20" height="20" style="vertical-align:middle;"/> Facebook
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@Zi-Bee-Reads" target="_blank">
+        <img src="https://cdn.simpleicons.org/youtube/ffffff" width="20" height="20" style="vertical-align:middle;"/> YouTube
+      </a>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h3>Contact Us</h3>
+    <p>Have a question, book suggestion or partnership enquiry? We'd love to hear from you.</p>
+    <div class="contact-row">
+      <span style="font-size:20px;">✉️</span>
+      <a href="mailto:zibeereads@gmail.com">zibeereads@gmail.com</a>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0 8px;color:rgba(255,255,255,0.25);font-size:12px;">
+    Zi-Bee Reads · Free forever · Built with love
+  </div>
+</div>
+
+<!-- PRIVACY POLICY -->
+
+<div class="screen" id="screen-privacy">
+  <div style="padding-bottom:20px;">
+    <h1 class="page-title">🔒 Privacy <span>Policy</span></h1>
+    <p class="page-sub">Last updated: May 2026</p>
+
+```
+<div class="about-section">
+  <h3>1. Who We Are</h3>
+  <p>Zi-Bee Reads ("we", "us", "our") is a free web application accessible at zibeereads.github.io/zibeereads. We are committed to protecting your personal information and your right to privacy.</p>
+</div>
+
+<div class="about-section">
+  <h3>2. Information We Collect</h3>
+  <p>When you sign up we collect your <strong>name</strong>, <strong>email address</strong> and <strong>age group</strong>. We do not collect payment information, government IDs or sensitive personal data. Reading preferences, book lists and challenge progress are stored locally on your device only and are never sent to our servers.</p>
+</div>
+
+<div class="about-section">
+  <h3>3. How We Use Your Information</h3>
+  <p>Your name and email are used solely to personalise your experience within the app and to occasionally send you reading recommendations and product updates. We do not sell, rent or share your personal data with third parties for marketing purposes.</p>
+</div>
+
+<div class="about-section">
+  <h3>4. Data Storage</h3>
+  <p>Your signup data is stored securely using Supabase, a GDPR-compliant cloud database hosted in the EU. Your device data (books, challenge progress) is stored in your browser's local storage and is never transmitted to external servers.</p>
+</div>
+
+<div class="about-section">
+  <h3>5. Third-Party Services</h3>
+  <p>Our AI book recommendations are powered by OpenRouter. Amazon affiliate links are provided for your convenience we may earn a small commission when you purchase through these links at no extra cost to you. We use Cloudinary for image delivery.</p>
+</div>
+
+<div class="about-section">
+  <h3>6. Children's Privacy (COPPA)</h3>
+  <p>Zi-Bee Reads serves users of all ages including children under 13. We do not knowingly collect personal information from children under 13 without verifiable parental consent. If you believe your child has provided us information without your consent please contact us immediately at zibeereads@gmail.com and we will delete it promptly.</p>
+</div>
+
+<div class="about-section">
+  <h3>7. Your Rights (GDPR)</h3>
+  <p>If you are located in the European Economic Area you have the right to access, correct or delete your personal data at any time. To exercise these rights contact us at zibeereads@gmail.com. We will respond within 30 days.</p>
+</div>
+
+<div class="about-section">
+  <h3>8. Cookies</h3>
+  <p>Zi-Bee Reads does not use tracking cookies. We use browser local storage solely to save your reading preferences on your own device.</p>
+</div>
+
+<div class="about-section">
+  <h3>9. Changes to This Policy</h3>
+  <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date. Continued use of the app after changes constitutes acceptance of the new policy.</p>
+</div>
+
+<div class="about-section">
+  <h3>10. Contact</h3>
+  <p>For any privacy-related questions contact us at <a href="mailto:zibeereads@gmail.com" style="color:#F5A800;">zibeereads@gmail.com</a></p>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- TERMS AND CONDITIONS -->
+
+<div class="screen" id="screen-terms">
+  <div style="padding-bottom:20px;">
+    <h1 class="page-title">📜 Terms &amp; <span>Conditions</span></h1>
+    <p class="page-sub">Last updated: May 2026</p>
+
+```
+<div class="about-section">
+  <h3>1. Acceptance of Terms</h3>
+  <p>By accessing or using Zi-Bee Reads you agree to be bound by these Terms and Conditions. If you do not agree please do not use the app. These terms apply to all visitors and users of the application.</p>
+</div>
+
+<div class="about-section">
+  <h3>2. Use of the App</h3>
+  <p>Zi-Bee Reads is provided for personal, non-commercial use. You agree not to misuse the app, attempt to gain unauthorised access to our systems, or use the app to distribute harmful or illegal content. You must be at least 5 years old to use this app. Users under 13 should have parental supervision.</p>
+</div>
+
+<div class="about-section">
+  <h3>3. Intellectual Property</h3>
+  <p>All content within Zi-Bee Reads including the mascot, design, branding, written content and code is owned by Zi-Bee Reads and protected by copyright law. You may not reproduce, distribute or create derivative works without written permission.</p>
+</div>
+
+<div class="about-section">
+  <h3>4. AI-Generated Recommendations</h3>
+  <p>Book recommendations are generated by artificial intelligence and are provided for informational purposes only. We do not guarantee the accuracy, suitability or availability of any recommended book. Zi-Bee Reads is not responsible for any purchasing decisions made based on AI recommendations.</p>
+</div>
+
+<div class="about-section">
+  <h3>5. Affiliate Links</h3>
+  <p>Zi-Bee Reads participates in the Amazon Associates Programme. When you click a "Get Book" link and make a purchase we may earn a small commission. This does not affect the price you pay. We only recommend books we genuinely believe are valuable to our readers.</p>
+</div>
+
+<div class="about-section">
+  <h3>6. Disclaimer of Warranties</h3>
+  <p>Zi-Bee Reads is provided "as is" without warranties of any kind. We do not warrant that the app will be uninterrupted, error-free or free of viruses. We reserve the right to modify, suspend or discontinue the app at any time without notice.</p>
+</div>
+
+<div class="about-section">
+  <h3>7. Limitation of Liability</h3>
+  <p>To the maximum extent permitted by law Zi-Bee Reads shall not be liable for any indirect, incidental, special or consequential damages arising from your use of the app, including loss of data or profits.</p>
+</div>
+
+<div class="about-section">
+  <h3>8. Third-Party Links</h3>
+  <p>Our app contains links to third-party websites including Amazon. We are not responsible for the content, privacy practices or terms of these external sites. Visiting them is at your own risk.</p>
+</div>
+
+<div class="about-section">
+  <h3>9. Governing Law</h3>
+  <p>These terms are governed by applicable international laws. Any disputes arising from the use of Zi-Bee Reads shall be resolved in good faith through direct communication before any legal action is pursued.</p>
+</div>
+
+<div class="about-section">
+  <h3>10. Changes to Terms</h3>
+  <p>We reserve the right to update these Terms and Conditions at any time. Continued use of the app after changes constitutes acceptance. Check this page periodically for updates.</p>
+</div>
+
+<div class="about-section">
+  <h3>11. Contact</h3>
+  <p>For any questions about these terms contact us at <a href="mailto:zibeereads@gmail.com" style="color:#F5A800;">zibeereads@gmail.com</a></p>
+</div>
+```
+
+  </div>
+</div>
+
 </div><!-- end #app -->
 
 <!-- FOOTER -->
 
 <footer style="text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.07);margin-top:0;position:relative;z-index:1;">
-  <p style="font-size:12px;color:rgba(255,255,255,0.25);font-family:'Nunito',sans-serif;"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="20" height="20" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Powered by <span style="color:var(--honey);font-weight:800;">Zi-Bee Reads</span> · 2026</p>
+  <p style="font-size:12px;color:#fff,0.25);font-family:'Nunito',sans-serif;"><img src="https://res.cloudinary.com/dhudiirqu/image/upload/f_auto,q_auto/F014A545-DA73-4AC6-BAD6-FE44AB603A53_q4bvhx" width="20" height="20" style="vertical-align:middle;margin-right:4px;border-radius:3px;" alt=""/> Powered by <span style="color:#F5A800;font-weight:800;">Zi-Bee Reads</span> · 2026</p>
+  <p style="margin-top:8px;font-size:12px;font-family:'Nunito',sans-serif;">
+    <a href="#" onclick="showFromDrawer('privacy');return false;" style="color:#F5A800;font-weight:800;text-decoration:none;">Privacy Policy</a>
+    <span style="color:rgba(255,255,255,0.2);margin:0 8px;">·</span>
+    <a href="#" onclick="showFromDrawer('terms');return false;" style="color:#F5A800;font-weight:800;text-decoration:none;">Terms &amp; Conditions</a>
+  </p>
 </footer>
 
 <script>
@@ -948,10 +1193,14 @@ function submitOnboarding(){
       'Content-Type':'application/json',
       'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
       'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
-      'Prefer':'return=minimal','x-upsert':'true'
+      'Prefer':'return=representation',
+      'Content-Profile':'public'
     },
-    body:JSON.stringify({name,email,age:ageMap[selectedAge]||18})
-  }).catch(()=>{});
+    body:JSON.stringify({name:name,email:email,age:ageMap[selectedAge]||18})
+  }).then(r=>{
+    if(!r.ok){r.text().then(t=>console.log('Signup error:',r.status,t));}
+    else{console.log('Signup saved ✓');}
+  }).catch(e=>console.log('Signup catch:',e.message));
   document.getElementById('onboarding').classList.add('hidden');
   document.getElementById('app').style.display='block';
   initApp();
@@ -962,12 +1211,63 @@ function loadProfile(){
 }
 
 // ── NAV ───────────────────────────────────────────────────────────────────
+
+
+function shareRecs(){
+  const out = document.getElementById('recOutput');
+  if(!out) return;
+  // Extract text from the output
+  const titles = [];
+  out.querySelectorAll('td div:first-child').forEach(el=>{
+    const t = el.textContent.replace('📖','').trim();
+    if(t) titles.push(t);
+  });
+  const text = titles.length
+    ? 'My Zi-Bee Reads picks:\n\n' + titles.map((t,i)=>`${i+1}. ${t}`).join('\n') + '\n\nFind your perfect book 📚\nzibeereads.github.io/zibeereads'
+    : 'Check out Zi-Bee Reads — free AI book recommendations! 📚\nzibeereads.github.io/zibeereads';
+  if(navigator.share){
+    navigator.share({title:'My Zi-Bee Reads Picks',text,url:'https://zibeereads.github.io/zibeereads'}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text).then(()=>{
+      alert('Picks copied to clipboard! Paste and share 📚');
+    }).catch(()=>{
+      alert('Share: zibeereads.github.io/zibeereads');
+    });
+  }
+}
+
+function toggleDrawer(){
+  const drawer=document.getElementById('drawer');
+  const overlay=document.getElementById('drawerOverlay');
+  const burger=document.getElementById('hamburger');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('open');
+  burger.classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+function showFromDrawer(id){
+  closeDrawer();
+  show(id);
+}
+
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
-  const tabs=['home','rec','tracker','quiz','picks','challenge'];
-  tabs.forEach(t=>document.getElementById('tab-'+t).classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
+  const tabs=['home','rec','tracker','quiz','picks','challenge','about','privacy','terms'];
+  tabs.forEach(t=>{
+    const el=document.getElementById('tab-'+t);
+    if(el)el.classList.remove('active');
+    const del=document.getElementById('drawer-'+t);
+    if(del)del.classList.remove('active');
+  });
+  const activeTab=document.getElementById('tab-'+id);
+  if(activeTab)activeTab.classList.add('active');
+  const activeDrawer=document.getElementById('drawer-'+id);
+  if(activeDrawer)activeDrawer.classList.add('active');
   if(id==='quiz')renderQuizStart();
   if(id==='picks')renderPicks();
   if(id==='challenge')renderChallenge();
@@ -986,7 +1286,7 @@ function t(k){return T[lang]?.[k]??T.en[k]??k;}
 function applyTranslations(){
   const L=T[lang]||T.en;
   // nav tabs
-  const tabs=['home','rec','tracker','quiz','picks','challenge'];
+  const tabs=['home','rec','tracker','quiz','picks','challenge','about','privacy','terms'];
   tabs.forEach((id,i)=>{
     const btn=document.getElementById('tab-'+id);
     if(btn)btn.textContent=L.nav[i];
@@ -1139,7 +1439,12 @@ async function getRecommendation(){
         html+=`</table><p style="font-style:italic;color:var(--honey);margin-bottom:10px;margin-top:4px;">${l.trim()}</p><table style="width:100%;border-collapse:collapse;margin-top:4px;">`;
       }
     });
-    html+=`</table>`;
+    html+=`</table>
+    <div style="text-align:center;margin-top:20px;">
+      <button onclick="shareRecs()" style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.4);color:#F5A800;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;padding:12px 28px;border-radius:50px;cursor:pointer;transition:all .2s;">
+        📤 Share These Picks
+      </button>
+    </div>`;
     out.innerHTML=html;
   }catch(e){
     out.innerHTML=`<p style="color:#f87171">Error: ${e.message}. Please try again.</p>`;
