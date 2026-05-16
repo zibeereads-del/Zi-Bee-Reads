@@ -51,7 +51,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(28,10,0,.92);backdrop-filt
 .lang-sel option{background:#2d1200;}
 .nav-tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:0 16px 10px;}
 .nav-tabs::-webkit-scrollbar{display:none;}
-.tab-btn{background:none;border:none;color:var(–muted);font-family:‘Nunito’,sans-serif;font-size:12px;font-weight:800;padding:8px 14px;border-radius:30px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn{background:none;border:none;color:#fff;font-family:‘Nunito’,sans-serif;font-size:12px;font-weight:800;padding:8px 14px;border-radius:30px;cursor:pointer;white-space:nowrap;transition:all .2s;}
 .tab-btn.active,.tab-btn:hover{background:rgba(245,158,11,.15);color:var(–honey);}
 
 /* ── SCREENS ── */
@@ -110,7 +110,7 @@ hr.div{border:none;border-top:1px solid var(–border);margin:20px 0;}
 .home-tagline{color:var(–muted);font-size:15px;max-width:380px;margin:0 auto 28px;line-height:1.6;}
 .welcome-banner{border-radius:var(–radius);border:1px solid rgba(245,158,11,.2);background:rgba(245,158,11,.06);padding:16px 20px;display:flex;align-items:flex-start;gap:14px;max-width:500px;margin:0 auto 28px;}
 .wb-emoji{font-size:28px;flex-shrink:0;line-height:1;}
-.wb-name{font-family:‘Playfair Display’,serif;font-size:17px;font-weight:700;color:var(–honey);margin-bottom:3px;}
+.wb-name{font-family:‘Playfair Display’,serif;font-size:17px;font-weight:700;color:#F5A800;margin-bottom:3px;}
 .wb-tip{font-size:13px;color:var(–muted);line-height:1.5;}
 .feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
 .feat-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:20px;cursor:pointer;transition:all .2s;text-align:center;}
@@ -546,7 +546,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"Every story is a new adventure! Pick a book with a fun cover today."},"9-12":{e:"🚀",t:"The best books will take you to worlds you've never imagined. Ready to explore?"},"13-17":{e:"💫",t:"Reading builds the person you're becoming. Find a story that challenges you."},"18+":{e:"📖",t:"Great books sharpen the mind and open the heart. What will you discover next?"}},
     rec_title:"Discover Your Next Book",rec_sub:"Tell us what you're looking for and we'll find the perfect match.",
     rec_age:"Age Group",rec_genre:"Genre",rec_mood:"Mood",rec_lang:"Recommendation Language",rec_btn:"✨ Find My Books",rec_searching:"Searching library…",
-    genres:["Adventure","Fantasy","Mystery","Romance","Sci-Fi","Non-Fiction","Horror","Humor","Historical Fiction","Graphic Novel","Self-Help","Biography","Thriller","Crime","Poetry","Sports"],
+    genres:["Adventure","Fantasy","Mystery","Romance","Sci-Fi","Non-Fiction","Horror","Humor","Historical Fiction","Graphic Novel","Self-Help","Biography","Thriller","Crime","Poetry","Sports","Young Adult (YA)","Manga & Comics","Faith & Spirituality","Contemporary Fiction"],
     moods:["Thrilling","Cosy","Inspired","Emotional","Funny","Romantic","Dark & Twisty","Feel-Good","Mind-Bending","Empowering"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 Your Matches",
@@ -594,7 +594,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"Chaque histoire est une nouvelle aventure !"},"9-12":{e:"🚀",t:"Les meilleurs livres vous emmèneront dans des mondes inimaginables."},"13-17":{e:"💫",t:"La lecture construit la personne que vous devenez."},"18+":{e:"📖",t:"Les grands livres aiguisent l'esprit et ouvrent le cœur."}},
     rec_title:"Découvrez votre prochain livre",rec_sub:"Dites-nous ce que vous cherchez et nous trouverons la lecture parfaite.",
     rec_age:"Tranche d'âge",rec_genre:"Genre",rec_mood:"Humeur",rec_lang:"Langue de recommandation",rec_btn:"✨ Trouver mes livres",rec_searching:"Recherche en cours…",
-    genres:["Aventure","Fantaisie","Mystère","Romance","Science-Fiction","Non-Fiction","Horreur","Humour","Fiction Historique","Roman Graphique","Développement Personnel","Biographie","Thriller","Crime","Poésie","Sport"],
+    genres:["Aventure","Fantaisie","Mystère","Romance","Science-Fiction","Non-Fiction","Horreur","Humour","Fiction Historique","Roman Graphique","Développement Personnel","Biographie","Thriller","Crime","Poésie","Sport","Jeune Adulte","Manga & BD","Foi & Spiritualité","Fiction Contemporaine"],
     moods:["Palpitant","Cosy","Inspirant","Émouvant","Drôle","Romantique","Sombre","Feel-Good","Déroutant","Stimulant"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 Vos correspondances",
@@ -642,7 +642,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"¡Cada historia es una nueva aventura!"},"9-12":{e:"🚀",t:"Los mejores libros te llevarán a mundos que nunca imaginaste."},"13-17":{e:"💫",t:"La lectura construye la persona en quien te estás convirtiendo."},"18+":{e:"📖",t:"Los grandes libros agudizan la mente y abren el corazón."}},
     rec_title:"Descubre tu próximo libro",rec_sub:"Cuéntanos qué buscas y encontraremos la lectura perfecta.",
     rec_age:"Grupo de edad",rec_genre:"Género",rec_mood:"Estado de ánimo",rec_lang:"Idioma de recomendación",rec_btn:"✨ Encontrar mis libros",rec_searching:"Buscando en la biblioteca…",
-    genres:["Aventura","Fantasía","Misterio","Romance","Ciencia ficción","No ficción","Terror","Humor","Ficción Histórica","Novela Gráfica","Autoayuda","Biografía","Thriller","Crimen","Poesía","Deportes"],
+    genres:["Aventura","Fantasía","Misterio","Romance","Ciencia ficción","No ficción","Terror","Humor","Ficción Histórica","Novela Gráfica","Autoayuda","Biografía","Thriller","Crimen","Poesía","Deportes","Joven Adulto","Manga & Cómics","Fe & Espiritualidad","Ficción Contemporánea"],
     moods:["Emocionante","Acogedor","Inspirador","Emotivo","Gracioso","Romántico","Oscuro","Feel-Good","Desconcertante","Empoderador"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 Tus coincidencias",
@@ -690,7 +690,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"Cada história é uma nova aventura!"},"9-12":{e:"🚀",t:"Os melhores livros vão te levar a mundos que você nunca imaginou."},"13-17":{e:"💫",t:"A leitura constrói a pessoa em quem você está se tornando."},"18+":{e:"📖",t:"Grandes livros afia a mente e abre o coração."}},
     rec_title:"Descubra seu próximo livro",rec_sub:"Conte-nos o que procura e encontraremos a leitura perfeita.",
     rec_age:"Faixa etária",rec_genre:"Gênero",rec_mood:"Humor",rec_lang:"Idioma de recomendação",rec_btn:"✨ Encontrar meus livros",rec_searching:"Pesquisando na biblioteca…",
-    genres:["Aventura","Fantasia","Mistério","Romance","Ficção científica","Não ficção","Terror","Humor","Ficção Histórica","Novela Gráfica","Autoajuda","Biografia","Thriller","Crime","Poesia","Esportes"],
+    genres:["Aventura","Fantasia","Mistério","Romance","Ficção científica","Não ficção","Terror","Humor","Ficção Histórica","Novela Gráfica","Autoajuda","Biografia","Thriller","Crime","Poesia","Esportes","Jovem Adulto","Manga & Quadrinhos","Fé & Espiritualidade","Ficção Contemporânea"],
     moods:["Emocionante","Aconchegante","Inspirador","Emotivo","Engraçado","Romântico","Sombrio","Feel-Good","Desconcertante","Empoderador"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 Suas correspondências",
@@ -737,7 +737,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"Kila hadithi ni safari mpya ya kusisimua!"},"9-12":{e:"🚀",t:"Vitabu bora vitakupeleka katika ulimwengu usiofikiriwa."},"13-17":{e:"💫",t:"Kusoma kunakujenga uwe mtu bora zaidi."},"18+":{e:"📖",t:"Vitabu vikubwa vinakuza akili na kufungua moyo."}},
     rec_title:"Gundua Kitabu Chako Kijacho",rec_sub:"Tuambie unachotafuta, na tutakupata usomaji kamili.",
     rec_age:"Kundi la Umri",rec_genre:"Aina",rec_mood:"Hali ya Hisia",rec_lang:"Lugha ya Mapendekezo",rec_btn:"✨ Tafuta Vitabu Vyangu",rec_searching:"Kutafuta kwenye maktaba…",
-    genres:["Msisimko","Fantasia","Siri","Mapenzi","Sayansi ya Kubuni","Ukweli","Hofu","Ucheshi","Historia","Riwaya ya Picha","Maendeleo Binafsi","Wasifu","Thriller","Uhalifu","Ushairi","Michezo"],
+    genres:["Msisimko","Fantasia","Siri","Mapenzi","Sayansi ya Kubuni","Ukweli","Hofu","Ucheshi","Historia","Riwaya ya Picha","Maendeleo Binafsi","Wasifu","Thriller","Uhalifu","Ushairi","Michezo","Vijana Wazima","Manga & Katuni","Imani & Kiroho","Hadithi za Kisasa"],
     moods:["Ya Kusisimua","Starehe","Iliyohamasisha","Yenye Hisia","Ya Kuchekesha","Ya Mapenzi","Giza","Feel-Good","Ya Kushangaza","Inayohamasisha"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 Mechi Zako",
@@ -784,7 +784,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"كل قصة مغامرة جديدة!"},"9-12":{e:"🚀",t:"أفضل الكتب ستأخذك إلى عوالم لم تتخيلها."},"13-17":{e:"💫",t:"القراءة تبني الشخص الذي تصبحه."},"18+":{e:"📖",t:"الكتب العظيمة تشحذ العقل وتفتح القلب."}},
     rec_title:"اكتشف كتابك القادم",rec_sub:"أخبرنا عما تبحث عنه وسنجد القراءة المثالية.",
     rec_age:"الفئة العمرية",rec_genre:"النوع",rec_mood:"المزاج",rec_lang:"لغة التوصية",rec_btn:"✨ ابحث عن كتبي",rec_searching:"جارٍ البحث في المكتبة…",
-    genres:["مغامرة","خيال","غموض","رومانسية","خيال علمي","غير خيالي","رعب","فكاهة","تاريخي","روايات مصورة","تطوير الذات","سيرة ذاتية","إثارة","جريمة","شعر","رياضة"],
+    genres:["مغامرة","خيال","غموض","رومانسية","خيال علمي","غير خيالي","رعب","فكاهة","تاريخي","روايات مصورة","تطوير الذات","سيرة ذاتية","إثارة","جريمة","شعر","رياضة","يافعون","مانغا وكوميكس","الإيمان والروحانية","الخيال المعاصر"],
     moods:["مثير","دافئ","ملهم","عاطفي","مضحك","رومانسي","مظلم","بهجة","محير","تمكيني"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 نتائجك",
@@ -831,7 +831,7 @@ const T = {
     age_tips:{"5-8":{e:"🌈",t:"すべての物語は新しい冒険です！"},"9-12":{e:"🚀",t:"最高の本があなたを想像もしなかった世界へ連れて行きます。"},"13-17":{e:"💫",t:"読書はあなたがなっていく人を築きます。"},"18+":{e:"📖",t:"素晴らしい本は心を鋭くし、心を開きます。"}},
     rec_title:"次に読む本を見つけよう",rec_sub:"あなたが求めるものを教えてください。最高の一冊を見つけます。",
     rec_age:"年齢グループ",rec_genre:"ジャンル",rec_mood:"気分",rec_lang:"推薦言語",rec_btn:"✨ 本を探す",rec_searching:"図書館を検索中…",
-    genres:["冒険","ファンタジー","ミステリー","ロマンス","SF","ノンフィクション","ホラー","ユーモア","歴史小説","グラフィックノベル","自己啓発","伝記","スリラー","犯罪","詩","スポーツ"],
+    genres:["冒険","ファンタジー","ミステリー","ロマンス","SF","ノンフィクション","ホラー","ユーモア","歴史小説","グラフィックノベル","自己啓発","伝記","スリラー","犯罪","詩","スポーツ","ヤングアダルト","マンガ＆コミック","信仰＆スピリチュアル","現代小説"],
     moods:["スリリング","のんびり","インスピレーション","感動的","おもしろい","ロマンチック","ダーク","ほっこり","謎めいた","力強い"],
     ages:["5-8","9-12","13-17","18+"],
     rec_your:"📚 あなたへのおすすめ",
@@ -948,7 +948,7 @@ function submitOnboarding(){
       'Content-Type':'application/json',
       'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
       'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeHVxcmpteHdjc3l2cml5anN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTEyMTQsImV4cCI6MjA5NDE2NzIxNH0.fysRmOQAhJIrQrlEUH8dndpBfcoYIInvU3XT4wclJ0g',
-      'Prefer':'return=minimal'
+      'Prefer':'return=minimal','x-upsert':'true'
     },
     body:JSON.stringify({name,email,age:ageMap[selectedAge]||18})
   }).catch(()=>{});
@@ -1117,10 +1117,29 @@ async function getRecommendation(){
     }
     const L2=T[lang]||T.en;
     let html=`<h3>${L2.rec_your}</h3>`;
+    html+=`<table style="width:100%;border-collapse:collapse;margin-top:8px;">`;
     text.split('\n').filter(l=>l.trim()).forEach(l=>{
-      if(/^\d[\.\)]/.test(l.trim())){html+=`<p>📖 ${l.trim()}</p>`;}
-      else{html+=`<p style="font-style:italic;color:var(--honey);margin-bottom:14px">${l.trim()}</p>`;}
+      if(/^\d[\)\.]/.test(l.trim())){
+        const parts=l.trim().split(' – ');
+        const titlePart = parts[0] || l.trim();
+        const descPart = parts.slice(1).join(' – ') || '';
+        // Extract clean title for Amazon search
+        const cleanTitle = titlePart.replace(/^\d+[\)\.]\s*/,'').trim();
+        const searchUrl = 'https://www.amazon.com/s?k='+encodeURIComponent(cleanTitle)+'&tag=zibeereads-20';
+        html+=`<tr style="border:1px solid rgba(245,158,11,0.2);border-radius:12px;">
+          <td style="padding:14px 16px;vertical-align:top;">
+            <div style="color:#F5A800;font-weight:800;font-size:14px;margin-bottom:6px;">${titlePart.replace(/\*\*/g,"")}</div>
+            <div style="color:rgba(255,255,255,0.85);font-size:13px;line-height:1.6;">${descPart}</div>
+          </td>
+          <td style="padding:14px 12px;vertical-align:middle;text-align:center;white-space:nowrap;">
+            <a href="${searchUrl}" target="_blank" style="display:inline-block;background:#E7E7E9;color:#1c0a00;font-weight:800;font-size:12px;padding:8px 14px;border-radius:20px;text-decoration:none;box-shadow:0 0 12px rgba(231,231,233,0.6),0 0 24px rgba(231,231,233,0.3);">Get Book</a>
+          </td>
+        </tr>`;
+      } else {
+        html+=`</table><p style="font-style:italic;color:var(--honey);margin-bottom:10px;margin-top:4px;">${l.trim()}</p><table style="width:100%;border-collapse:collapse;margin-top:4px;">`;
+      }
     });
+    html+=`</table>`;
     out.innerHTML=html;
   }catch(e){
     out.innerHTML=`<p style="color:#f87171">Error: ${e.message}. Please try again.</p>`;
